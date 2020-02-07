@@ -42,18 +42,13 @@ class path_activity:
             self.probe_to_gene_df.columns = ['probe', 'gene']
 
         self.udp = udp
-        self.probelinks = pd.read_csv('probelinks.txt', delimiter='\t', header=None)
-        self.probelinks.drop(2, inplace=True, axis=1)
-        self.probelinks.columns = ['probe', 'link']
+        self.probelinks = pd.read_csv('probelinksv2.txt', index_col=0) #, header=None
+        #self.probelinks.drop(2, inplace=True, axis=1)
+        #self.probelinks.columns = ['probe', 'link']
         self.probelinks['link'] = self.probelinks.link.replace('---', 0)
         self.probelinks['link'] = pd.to_numeric(self.probelinks.link)
         # Use only probes or genes that appear in paths.
-        probes = self.filter_probes()
-        if (not self.is_rnaseq):
-            self.udp = self.udp.loc[list(set(self.udp.index) & set(probes.values))]
-        else:
-            genes = self.probe_to_gene_df.loc[self.probe_to_gene_df.probe.isin(probes)].gene.copy()
-            self.udp = self.udp.loc[self.udp.index.isin(genes)]
+        #self.filter_probes()
 
     # Create dictionaries mapping links to the relevant probabilities (UDP), for specific sample_num.
     def calc_link_to_pr(self, sample):
@@ -104,7 +99,11 @@ class path_activity:
         path_links.remove(np.nan)
         #new_index = pd.Series(list(path_links))
         probes = self.probelinks.loc[self.probelinks['link'].isin(path_links)].probe.reset_index(drop=True)
-        return(probes)
+        if (not self.is_rnaseq):
+            self.udp = self.udp.loc[list(set(self.udp.index) & set(probes.values))]
+        else:
+            genes = self.probe_to_gene_df.loc[self.probe_to_gene_df.probe.isin(probes)].gene.copy()
+            self.udp = self.udp.loc[self.udp.index.isin(genes)]
 
     # Complexes are proteins == basic complexes (built from links to probes) or group of proteins.
     # Parse complexes in order to build a dictionary for complex->UDP (similar to the links to UDP dictionary).
@@ -288,15 +287,15 @@ class path_activity:
 
             # Add the graph edges.
             if (row['molRole'] == 'input' or row['molRole'] == 'agent'):
-                xml += f'<relation entry1="{row["molNum"]}" entry2="{row["intID"]}" type="PPrel"> ' \
+                xml += f'<relation entry1="{row["molName"]}" entry2="{row["intID"]}" type="PPrel"> ' \
                     '<subtype name="activation" value="-->"/> ' \
                     '</relation>'
             elif (row['molRole'] == 'output'):
-                xml += f'<relation entry1="{row["intID"]}" entry2="{row["molNum"]}" type="PPrel"> ' \
+                xml += f'<relation entry1="{row["intID"]}" entry2="{row["molName"]}" type="PPrel"> ' \
                     '<subtype name="activation" value="-->"/> ' \
                     '</relation>'
             elif (row['molRole'] == 'inhibitor'):
-                xml += f'<relation entry1="{row["molNum"]}" entry2="{row["intID"]}" type="PPrel"> ' \
+                xml += f'<relation entry1="{row["molName"]}" entry2="{row["intID"]}" type="PPrel"> ' \
                     '<subtype name="activation" value="--|"/> ' \
                     '</relation>'
         xml += '</pathway>'
@@ -329,7 +328,7 @@ if __name__ == '__main__':
 
     udp = pd.read_csv('./data/output_udp.csv', index_col=0)
     activity_obj = path_activity(udp, False)
-    #activity_obj.calc_activity_consistency_multi_process()
+    # activity_obj.calc_activity_consistency_multi_process()
     activity_obj.xmlparser(100001, 1)
 
     # Bladder

@@ -204,13 +204,13 @@ def calc_udp_multi_process(data, is_rnaseq):
     gc.collect()
     print(time.ctime(), f'Calculate UDP, is_rnaseq: {is_rnaseq}')
     data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
-    #probes = self.filter_probes()
+    probes = pd.read_csv('probelinksv2.txt', index_col=0)
+    genes = pd.read_csv('gene_list.csv')
     if (not is_rnaseq):
-        #self.rma = self.rma.loc[list(set(self.rma.index) & set(probes.values))]
+        data = data.loc[list(set(data.index) & set(probes.probe.values))]
         func = calc_udp_gmm
     else:
-        #genes = self.probe_to_gene_df.loc[self.probe_to_gene_df.probe.isin(probes)].gene.copy()
-        #self.rma = self.rma.loc[self.rma.index.isin(genes)]
+        data = data.loc[list(set(data.index) & set(genes.gene.values))]
         func = calc_udp_nbm
     df = pd.DataFrame()
     pool = mp.Pool()  # Use number of CPUs processes.
@@ -221,6 +221,7 @@ def calc_udp_multi_process(data, is_rnaseq):
         print('.', end="")
         sys.stdout.flush()
     df.to_csv('output_udp.csv')
+    print(time.ctime(), 'Done.')
     return df
 
 

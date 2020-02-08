@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#https://repo2docker.readthedocs.io/en/latest/config_files.html
 set -ex
 jupyter notebook --generate-config
 jupyter --config-dir

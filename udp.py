@@ -200,7 +200,8 @@ def chunker_rows(data, size):
 
 
 # Run calc_udp on parallel.
-def calc_udp_multi_process(data, is_rnaseq):
+def calc_udp_multi_process(is_rnaseq):
+    data = pd.read_csv('input.csv', index_col=0)
     gc.collect()
     print(time.ctime(), f'Calculate UDP, is_rnaseq: {is_rnaseq}')
     data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
@@ -226,21 +227,19 @@ def calc_udp_multi_process(data, is_rnaseq):
 
 
 if __name__ == '__main__':
-    data = pd.read_csv('./data/GSE29013_RMA.csv', index_col=0)
-    data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
-
+    #data = pd.read_csv('./data/GSE29013_RMA.csv', index_col=0)
+    #data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
     #sample_data = data.sample(n=1000, replace=False)
     # for func in [calc_udp_poisson, calc_udp_nbm, calc_udp_gmm, calc_udp_norm, calc_udp_gennorm]:
     #    udp, aic = func(sample_data, aic_test=True)
     #    print(f'Function: {func.__name__}, aic: {aic}')
-
     #   Function: calc_udp_poisson, aic: 207.66830882318942
     #   Function: calc_udp_nbm, aic: 240.239110524907
     #   Function: calc_udp_gmm, aic: 162.60641335671778
     #   Function: calc_udp_norm, aic: 169.15685593656568
     #   Function: calc_udp_gennorm, aic: 160.8001788887676
+    calc_udp_multi_process(False)
 
-    calc_udp_multi_process(data, False)
 # Which one is visually better?
 #plt.hist(X, bins=20, normed=True)
 #plt.plot(range(260), ss.nbinom.pmf(range(260), np.round(P1[0]), P1[1], np.round(P1[2])), 'g-')

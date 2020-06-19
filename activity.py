@@ -10,14 +10,30 @@ try:
 except ImportError:
     from .udp import calc_udp_gmm, calc_udp_nbm
 from scipy.stats import mannwhitneyu as mann
+import plotly.graph_objects as go
+import networkx as nx
+#import cufflinks
+
+
+colors_green_to_red = ['00FF00', '11FF00', '22FF00', '33FF00', '44FF00', '55FF00', '66FF00', '77FF00', '88FF00',
+                       '99FF00', 'AAFF00', 'BBFF00', 'CCFF00', 'DDFF00', 'EEFF00', 'FFFF00', 'FFEE00', 'FFDD00',
+                       'FFCC00', 'FFBB00', 'FFAA00', 'FF9900', 'FF8800', 'FF7700', 'FF6600', 'FF5500', 'FF4400',
+                       'FF3300', 'FF2200', 'FF1100', 'FF0000']
+
+# Helper function to convert colour as RGB tuple to hex string
+# cufflinks.go_offline()
+
+
+def rgb_to_hex(rgb):
+    rgb = tuple([int(255 * val) for val in rgb])
+    return '#' + ''.join([hex(val)[2:] for val in rgb]).upper()
 
 
 class path_activity:
     def __init__(self, udp, is_rnaseq=False):
         print(time.ctime(), 'Init activity object')
         self.orig_paths = pd.read_csv('pathologist.db.txt', delimiter='\t', header=None)
-        self.orig_paths.columns = ['path_name', 'path_id', 'molType', 'molName', 'molNum', 'molLink', 'c7', 'c8', 'c9',
-                                   'molRole', 'intID', 'intType']
+        self.orig_paths.columns = ['path_name', 'path_id', 'molType', 'molName', 'molNum', 'molLink', 'c7', 'c8', 'c9', 'molRole', 'intID', 'intType']
         self.orig_paths.drop(['c8', 'c9'], inplace=True, axis=1)
         self.orig_paths = self.orig_paths.sort_values(['path_id', 'intID'])
         up2ll = pd.read_csv('UP2LL.txt', delimiter='\t', header=None, index_col=0)
@@ -42,13 +58,13 @@ class path_activity:
             self.probe_to_gene_df.columns = ['probe', 'gene']
 
         self.udp = udp
-        self.probelinks = pd.read_csv('probelinksv2.txt', index_col=0) #, header=None
-        #self.probelinks.drop(2, inplace=True, axis=1)
-        #self.probelinks.columns = ['probe', 'link']
+        self.probelinks = pd.read_csv('probelinksv2.txt', index_col=0)  # , header=None
+        # self.probelinks.drop(2, inplace=True, axis=1)
+        # self.probelinks.columns = ['probe', 'link']
         self.probelinks['link'] = self.probelinks.link.replace('---', 0)
         self.probelinks['link'] = pd.to_numeric(self.probelinks.link)
         # Use only probes or genes that appear in paths.
-        #self.filter_probes()
+        # self.filter_probes()
 
     # Create dictionaries mapping links to the relevant probabilities (UDP), for specific sample_num.
     def calc_link_to_pr(self, sample):
@@ -62,7 +78,7 @@ class path_activity:
         udp_sample = self.udp.loc[:, sample].copy().reset_index()
         udp_sample.columns = ['gene', 'pr']
         # udp_sample['gene'] = udp_sample.gene.apply(lambda x: x.split('|')[0]) #Remove Entre gene IDs.
-        #probelinks['gene'] = probelinks.probe.apply(lambda x: probe_to_gene_dict.get(x, None))
+        # probelinks['gene'] = probelinks.probe.apply(lambda x: probe_to_gene_dict.get(x, None))
         probe_to_pr = pd.merge(
             self.probelinks, self.probe_to_gene_df, on='probe', how='left')
         probe_to_pr = pd.merge(probe_to_pr, udp_sample, how='left')
@@ -97,7 +113,7 @@ class path_activity:
         proteins.molLink.apply(lambda x: [path_links.add(self.rem_link_prefix(i)) for i in str(x).split(',')])
 
         path_links.remove(np.nan)
-        #new_index = pd.Series(list(path_links))
+        # new_index = pd.Series(list(path_links))
         probes = self.probelinks.loc[self.probelinks['link'].isin(path_links)].probe.reset_index(drop=True)
         if (not self.is_rnaseq):
             self.udp = self.udp.loc[list(set(self.udp.index) & set(probes.values))]
@@ -109,7 +125,7 @@ class path_activity:
     # Parse complexes in order to build a dictionary for complex->UDP (similar to the links to UDP dictionary).
     # Problem is that complexes might be composed of other complexes. Hence we need another join operation.
     # We call complexes that have only proteins (i.e. no other complexes) 'basics'. They are part of other (non-basic) complexes.
-    # First we calculate UDP for basics, by mutiplyi UDPs of corresponding proteins. Then we can calculate
+    # First we calculate UDP for basics, by mutiplying UDPs of corresponding proteins. Then we can calculate
     # the UDP of all complexes by, again, multiplying all UDPs of mulecules (proteins and basics) in a path.
     # Molecules with no links (i.e. basic complexes) will get a default link. In that case they will get the default UDP value of 1.
     def calc_cmplx_to_pr(self):
@@ -168,7 +184,7 @@ class path_activity:
             paths.loc[paths.molRole == 'output', 'pr'] = 1
             # Handle molecules that we could not find UDP for, we need to remove the whole interaction.
             # Pandas like R is ignoring NA values in gropuby.transform, so instead we zero it.
-            #paths = paths.dropna(subset=['pr'])
+            # paths = paths.dropna(subset=['pr'])
             paths = paths.fillna({'pr': 0})
             paths['interaction_activity'] = paths.groupby(['path_id', 'intID'])[
                 'pr'].transform('prod')
@@ -209,7 +225,7 @@ class path_activity:
             df = df.append(p.get()[0])  # f.get(timeout=100)
             print('.', end="")
             sys.stdout.flush()
-        df.drop(['molRole'], inplace=True, axis=1)
+        # df.drop(['molRole'], inplace=True, axis=1)
         df.drop_duplicates(inplace=True)
         df.to_csv('output_activity.csv', index=False)
         self.activity = df
@@ -287,15 +303,15 @@ class path_activity:
 
             # Add the graph edges.
             if (row['molRole'] == 'input' or row['molRole'] == 'agent'):
-                xml += f'<relation entry1="{row["molName"]}" entry2="{row["intID"]}" type="PPrel"> ' \
+                xml += f'<relation entry1="{row["molNum"]}" entry2="{row["intID"]}" type="PPrel"> ' \
                     '<subtype name="activation" value="-->"/> ' \
                     '</relation>'
             elif (row['molRole'] == 'output'):
-                xml += f'<relation entry1="{row["intID"]}" entry2="{row["molName"]}" type="PPrel"> ' \
+                xml += f'<relation entry1="{row["intID"]}" entry2="{row["molNum"]}" type="PPrel"> ' \
                     '<subtype name="activation" value="-->"/> ' \
                     '</relation>'
             elif (row['molRole'] == 'inhibitor'):
-                xml += f'<relation entry1="{row["molName"]}" entry2="{row["intID"]}" type="PPrel"> ' \
+                xml += f'<relation entry1="{row["molNum"]}" entry2="{row["intID"]}" type="PPrel"> ' \
                     '<subtype name="activation" value="--|"/> ' \
                     '</relation>'
         xml += '</pathway>'
@@ -304,6 +320,185 @@ class path_activity:
         text_file.write(xml)
         text_file.close()
         return xml
+
+#This function create a graph and edges, to be used in function graphparser for graphical presentaion.
+    def process_interaction(self, group):
+        # Add node for the interaction.
+        row = group.iloc[0]
+        bg_color = "FFF8F8"  # White
+        int_id = int(row["intID"])
+        fg_color = int(row["interaction_activity"] * 30)
+        pr_act = str(row["interaction_activity"])
+        pr_con = str(row["interaction_consistency"])
+        self.G.add_node(int_id)
+        self.G.nodes[int_id]['type'] = "intType"
+        self.G.nodes[int_id]['activity'] = pr_act
+        self.G.nodes[int_id]['consistency'] = pr_con
+        self.G.nodes[int_id]['fgcolor'] = f"#{colors_green_to_red[fg_color]}"
+        self.G.nodes[int_id]['bgcolor'] = f"#{bg_color}"
+        self.G.nodes[int_id]['node_name'] = row["molName"]
+        # gr.width = min(60, 8 * len(row["intType"]))
+        # gr.height = 15
+        # gr.type = 'circle'
+
+        for index, row in group.iterrows():
+            # Add a node for the molecule.
+            mol_id = int(row["molNum"])
+            if (mol_id not in self.G.nodes):
+                bg_color = "42ECEF"  # Light turquoise
+                if (row['molRole'] == 'output'):
+                    fg_color = int(np.nan_to_num(row["pr_output"]) * 30)
+                    pr = str(np.nan_to_num(row["pr_output"]))
+                else:
+                    fg_color = int(np.nan_to_num(row["pr"]) * 30)
+                    pr = str(np.nan_to_num(row["pr"]))
+
+                if (row['molType'] == 'complex'):
+                    bg_color = "C3B6B6"  # Grey
+
+                self.G.add_node(mol_id)
+                self.G.nodes[mol_id]['node_name'] = row["molName"]
+                self.G.nodes[mol_id]['fgcolor'] = f"#{colors_green_to_red[fg_color]}"
+                self.G.nodes[mol_id]['bgcolor'] = f"#{bg_color}"
+                self.G.nodes[mol_id]['activity'] = pr
+                # gr.width = min(60, 8 * len(row["molName"]))
+                # gr.height = 17
+                # gr.type = 'circle'
+                self.G.nodes[mol_id]['type'] = row["molType"]
+
+            # Add an edge from the molecule to the reaction.
+            if (row['molRole'] == 'input' or row['molRole'] == 'agent' or row['molRole'] == 'inhibitor'):
+                entry1 = int(row["molNum"])
+                entry2 = int(row["intID"])
+                subtypes = [("activation", "-->")]
+            elif (row['molRole'] == 'output'):
+                entry1 = int(row["intID"])
+                entry2 = int(row["molNum"])
+                subtypes = [("activation", "-->")]
+            self.G.add_edge(entry1, entry2)
+
+        return
+
+    def graphparser(self, path_id, sample_num):
+        if (isinstance(path_id, int)):
+            paths = self.orig_paths.loc[self.orig_paths.path_id == path_id].copy()
+        else:
+            # If instead of path_id the input has the path name.
+            paths = self.orig_paths.loc[self.orig_paths.path_name == path_id].copy()
+            path_id = paths.iloc[0]['path_id']
+        # Add '+' in case of an active molecule.
+        paths.loc[paths.c7 == 'active', 'molName'] = paths.molName + '+'
+        self.G = nx.DiGraph()
+
+        # We need to get the extra information of interactions activity (that is not saved in the standard calc_activity_consistency run).
+        sampleID = self.udp.columns[int(sample_num)]
+        _, prbs = self.process_samples([sampleID])
+        prbs = prbs.loc[prbs['path_id'] == path_id]
+        prbs = prbs[['molNum', 'molRole', 'pr', 'pr_output', 'intID', 'interaction_activity', 'interaction_consistency']]
+        paths = pd.merge(paths, prbs, on=['molNum', 'intID', 'molRole'], how='left')
+
+        paths.groupby('intID').apply(self.process_interaction)
+        #self.pos = nx.nx_pydot.graphviz_layout(self.G)
+        self.pos = nx.drawing.layout.planar_layout(self.G)
+        #import IPython
+        #IPython.embed()
+
+        # Plot using Plotly.
+        edge_x = []
+        edge_y = []
+        for edge in self.G.edges():
+            x0, y0 = 500*self.pos[edge[0]]
+            x1, y1 = 500*self.pos[edge[1]]
+            edge_x.append(x0)
+            edge_x.append(x1)
+            edge_x.append(None)
+            edge_y.append(y0)
+            edge_y.append(y1)
+            edge_y.append(None)
+
+        edge_trace = go.Scatter(x=edge_x,
+                                y=edge_y,
+                                line=dict(width=0.5, color='#888'),
+                                hoverinfo='none',
+                                mode='lines')
+
+        node_x = []
+        node_y = []
+        hover = []
+        node_color = []
+        marker_symbol = []  # Shape of node.
+        node_text = []
+        for node in self.G.nodes():
+            x, y = 500*self.pos[node]
+            node_x.append(x)
+            node_y.append(y)
+            hover.append(f'Type: {"interaction" if self.G.nodes[node]["type"] == "intType" else self.G.nodes[node]["type"]}, ID: {node}, Activity: {self.G.nodes[node]["activity"]}')
+            node_text.append("" if self.G.nodes[node]["type"] == "intType" else self.G.nodes[node]["node_name"])
+            node_color.append(self.G.nodes[node]["fgcolor"])
+            marker_symbol.append(0 if self.G.nodes[node]["type"] == "intType" else 1)
+
+        node_trace = go.Scatter(
+            x=node_x, y=node_y, marker_symbol=marker_symbol,
+            mode='markers+text',
+            name="process",
+            text=node_text,
+            hoverinfo='text',
+            hovertext=hover,
+            textposition="top center",
+            marker=dict(
+                showscale=False,
+                # colorscale options
+                #'Greys' | 'YlGnBu' | 'Greens' | 'YlOrRd' | 'Bluered' | 'RdBu' |
+                #'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
+                #'Hot' | 'Blackbody' | 'Earth' | 'Electric' | 'Viridis' |
+                colorscale='YlOrRd',
+                # reversescale=True,
+                color=node_color,
+                size=10,
+                colorbar=dict(
+                    thickness=15,
+                    title='Activity Level',
+                    xanchor='left',
+                    titleside='right'
+                ),
+                line_width=2))
+
+        # Color nodes.
+        #node_adjacencies = []
+        #node_text = []
+        # for node, adjacencies in enumerate(self.G.adjacency()):
+        #    node_adjacencies.append(len(adjacencies[1]))
+        #    node_text.append('# of connections: ' + str(len(adjacencies[1])))
+        # node_trace.marker.color = node_color  # node_adjacencies
+        # node_trace.text = hover  # node_text
+
+        fig = go.Figure(data=[edge_trace, node_trace],
+                        layout=go.Layout(
+            title=f'KGML graph for path: {paths.iloc[0]["path_name"]}, sample: {sample_num}',
+            titlefont_size=16,
+            showlegend=False,
+            hovermode='closest',
+            margin=dict(b=20, l=5, r=5, t=40),
+            annotations=[dict(
+                text="Python code: <a href='https://github.com/zurkin1/Pathweigh/'> https://github.com/zurkin1/Pathweigh/</a>",
+                showarrow=False, xref="paper", yref="paper", x=0.005, y=-0.002),
+                # dict(x=0.95, y=-0.002, xref="paper", yref="paper", text="High Activity", bgcolor="#FF0000")
+            ],
+            xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+            yaxis=dict(showgrid=False, zeroline=False, showticklabels=False))
+        )
+        fig.update_layout(  # showlegend=False,
+            annotations=[dict(x=edge_x[i], y=edge_y[i], axref='x', ayref='y',
+                              ax=edge_x[i + 1], ay=edge_y[i + 1], xref='x', yref='y',
+                              showarrow=True, arrowhead=1, arrowsize=3) for i in range(0, len(edge_x) - 1, 3)])
+        fig.add_trace(go.Scatter(
+            x=[400], y=[-200], mode="text", name="Text", text=["High Activity"], textfont=dict(family="sans serif", size=18, color="red")))
+        fig.add_trace(go.Scatter(
+            x=[400], y=[-240], mode="text", name="Text", text=["Low Activity"], textfont=dict(family="sans serif", size=18, color="green")))
+
+        fig.show()
+
+        return
 
     def calc_mann_whitney(self, pathname, file1, file2):
         data1 = pd.read_csv(file1)
@@ -314,7 +509,7 @@ class path_activity:
         n2 = len(data2)
         m_u = n1 * n2 * 0.5
         stat, p = mann(data1.Activity, data2.Activity)
-        #sigma_u = np.sqrt(n1*n2*(n1+n2+1)*(10/12))
+        # sigma_u = np.sqrt(n1*n2*(n1+n2+1)*(10/12))
         print(
             f'Stat: {stat}, P-value: {p}, n1: {n1}, n2: {n2}, m_u(expected under H0): {m_u}')
 
@@ -326,33 +521,33 @@ if __name__ == '__main__':
     # activity_obj = path_activity(udp_filename='/data/output_udp.csv', rnaseq_file=0)  # Non RNAseq object
     # activity_obj.xmlparser(1,1)
 
-    udp = pd.read_csv('./data/output_udp.csv', index_col=0)
+    udp = pd.read_csv('output_udp.csv', index_col=0)
     activity_obj = path_activity(udp, False)
     # activity_obj.calc_activity_consistency_multi_process()
-    activity_obj.xmlparser(100001, 1)
+    activity_obj.graphparser(100001, 1)
 
     # Bladder
-    #activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_schizophrenia_gse17612.csv', '/data/output_activity_muscle_gse28422.csv')
+    # activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_schizophrenia_gse17612.csv', '/data/output_activity_muscle_gse28422.csv')
     # Stat: 2284.0, P-value: 0.029288669514444116, n1: 51, n2: 110, m_u(expected under H0): 2805.0
 
-    #activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_bladder_gse31684.csv', '/data/output_activity_muscle_gse28422.csv')
+    # activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_bladder_gse31684.csv', '/data/output_activity_muscle_gse28422.csv')
     # Stat: 2334.0, P-value: 1.3013141984774421e-11, n1: 93, n2: 110, m_u(expected under H0): 5115.0
 
-    #activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
+    # activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
     # Stat: 4124.0, P-value: 2.7848199372065743e-13, n1: 156, n2: 110, m_u(expected under H0): 8580.0
 
     # BRCA
-    #activity_obj.calc_mann_whitney('BRCA pathway reduction(Rotem)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
+    # activity_obj.calc_mann_whitney('BRCA pathway reduction(Rotem)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
     # Stat: 7658.0, P-value: 0.0679383681844674, n1: 156, n2: 110, m_u(expected under H0): 8580.0
-    #activity_obj.calc_mann_whitney('BRCA pathway reduction(Rotem)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_schizophrenia_gse17612.csv')
+    # activity_obj.calc_mann_whitney('BRCA pathway reduction(Rotem)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_schizophrenia_gse17612.csv')
     # Stat: 2814.0, P-value: 0.0008647738664741184, n1: 156, n2: 51, m_u(expected under H0): 3978.0
 
-    #activity_obj.calc_mann_whitney('brca1 dependent ub ligase activity(BioCarta)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
+    # activity_obj.calc_mann_whitney('brca1 dependent ub ligase activity(BioCarta)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
     # Stat: 8481.0, P-value: 0.4366733613601155, n1: 156, n2: 110, m_u(expected under H0): 8580.0
     # activity_obj.calc_mann_whitney('brca1 dependent ub ligase activity(BioCarta)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_schizophrenia_gse17612.csv')
     # Stat: 2977.0, P-value: 0.0035279674829234334, n1: 156, n2: 51, m_u(expected under H0): 3978.0
 
-    #activity_obj.calc_mann_whitney('role of brca1 brca2 and atr in cancer susceptibility(BioCarta)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
+    # activity_obj.calc_mann_whitney('role of brca1 brca2 and atr in cancer susceptibility(BioCarta)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
     # Stat: 7729.0, P-value: 0.08434596977542624, n1: 156, n2: 110, m_u(expected under H0): 8580.0
-    #activity_obj.calc_mann_whitney('role of brca1 brca2 and atr in cancer susceptibility(BioCarta)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_schizophrenia_gse17612.csv')
+    # activity_obj.calc_mann_whitney('role of brca1 brca2 and atr in cancer susceptibility(BioCarta)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_schizophrenia_gse17612.csv')
     # Stat: 2109.0, P-value: 2.4322278154806653e-07, n1: 156, n2: 51, m_u(expected under H0): 3978.0

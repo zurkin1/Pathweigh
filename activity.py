@@ -321,7 +321,6 @@ class path_activity:
         text_file.close()
         return xml
 
-#This function create a graph and edges, to be used in function graphparser for graphical presentaion.
     def process_interaction(self, group):
         # Add node for the interaction.
         row = group.iloc[0]
@@ -399,7 +398,7 @@ class path_activity:
 
         paths.groupby('intID').apply(self.process_interaction)
         #self.pos = nx.nx_pydot.graphviz_layout(self.G)
-        self.pos = nx.drawing.layout.planar_layout(self.G)
+        self.pos = nx.drawing.layout.circular_layout(self.G)
         #import IPython
         #IPython.embed()
 
@@ -524,7 +523,7 @@ if __name__ == '__main__':
     udp = pd.read_csv('output_udp.csv', index_col=0)
     activity_obj = path_activity(udp, False)
     # activity_obj.calc_activity_consistency_multi_process()
-    activity_obj.graphparser(100001, 1)
+    activity_obj.graphparser(100035, 1)
 
     # Bladder
     # activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_schizophrenia_gse17612.csv', '/data/output_activity_muscle_gse28422.csv')

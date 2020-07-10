@@ -1,8 +1,10 @@
 # Pathweigh
 Biochemical pathway analysis.
 
-## Running
-https://mybinder.org/v2/gh/zurkin1/Pathweigh/master?filepath=code/Pathweigh.ipynb
+## Running (Three Options)
+1. If you have Python installation then clone this repo and run the Pathweigh.ipynb notebook.
+2. Or you can run Pathweigh.ipynb notebook in Google Colab.
+3. Or you can just click https://mybinder.org/v2/gh/zurkin1/Pathweigh/master?filepath=code/Pathweigh.ipynb.
 
 ## Pathways to IDs
 Path name | ID

@@ -15,3 +15,4 @@ dependencies:
   - scipy
   - scikit-learn
   - networkx
+  - b4s

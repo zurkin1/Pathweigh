@@ -12,3 +12,6 @@ dependencies:
   - bokeh
   - dask
   - plotly
+  - scipy
+  - sklearn
+  - networkx

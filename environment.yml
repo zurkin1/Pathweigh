@@ -13,5 +13,5 @@ dependencies:
   - dask
   - plotly
   - scipy
-  - sklearn
+  - scikit-learn
   - networkx

@@ -5,9 +5,9 @@ Biochemical pathway analysis.
 https://mybinder.org/v2/gh/zurkin1/Pathweigh/master?filepath=Pathweigh.ipynb
 
 ## Pathway to IDs
-Path name	| ID
---------------
-1- and 2-Methylnaphthalene degradation(Kegg)	708708
+Path name	ID
+------------
+1- and 2-Methylnaphthalene degradation(Kegg)	| 708708
 1,4-Dichlorobenzene degradation(Kegg)	708843
 3-Chloroacrylic acid degradation(Kegg)	709216
 a4b1 and a4b7 Integrin signaling(NCI/Nature)	200068

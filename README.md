@@ -2,7 +2,7 @@
 Biochemical pathway analysis.
 
 ## Running
-https://mybinder.org/v2/gh/zurkin1/Pathweigh/master?filepath=Pathweigh.ipynb
+https://mybinder.org/v2/gh/zurkin1/Pathweigh/master?filepath=code/Pathweigh.ipynb
 
 ## Pathways to IDs
 Path name | ID

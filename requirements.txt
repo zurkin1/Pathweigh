@@ -1,0 +1,8 @@
+numpy
+scipy
+pandas
+sckit-learn
+ipywidgets
+networkx
+plotly
+bs4

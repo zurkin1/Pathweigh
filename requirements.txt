@@ -1,7 +1,7 @@
 numpy
 scipy
 pandas
-sckit-learn
+scikit-learn
 ipywidgets
 networkx
 plotly

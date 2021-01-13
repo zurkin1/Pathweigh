@@ -1,4 +1,6 @@
 # Pathweigh, a Biochemical Pathway Analysis Tool
+![Pathway Flow](/Pathway.jpg)
+
 A pathway is defined as a network of molecular interactions. Each interaction contains one or more input genes, proteins or other complex molecules, promoters and inhibitors, and one or more output molecules. 
 Pathway analysis exposes networks of regulation between proteins that lead to cell phenotypes. Pathway network research is often able to provide robust solutions, in cases where differential expression at the gene level cannot provide such robustness. 
 

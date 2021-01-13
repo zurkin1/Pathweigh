@@ -1,10 +1,12 @@
-# Pathweigh
-## A Biochemical Pathway Analysis Tool
+# Pathweigh, A Biochemical Pathway Analysis Tool
+![Pathway analysis](https://www.researchgate.net/profile/Ying_Han32/publication/316590031/figure/fig3/AS:667699684331525@1536203418273/Pathway-enrichment-PANTHER-and-KEGG-pathways-analysis-of-zebrafish-embryos-gene_W640.jpg)
 
-## Running The Tool (3 options)
-- Open https://github.com/zurkin1/Pathweigh/blob/master/Pathweigh.ipynb in Colab.
-- Or run in Jupyter notebook.
-- Or run using mybinder.
+## Overview
+https://drive.google.com/file/d/1vkYBcYFeTDggu922dhSLHqB85xVLGVWV/view?usp=sharing
+
+## Running The Tool in Colab
+- Browse to https://colab.research.google.com/.
+- Using the Gitub tab select and open https://github.com/zurkin1/Pathweigh.git.
 
 ## Pathway IDs
 Path name | ID

@@ -1,16 +1,14 @@
-# Pathweigh
-## A Biochemical Pathway Analysis Tool
+# Pathweigh A Biochemical Pathway Analysis Tool
+![Pathway analysis](https://norbis.w.uib.no/files/2016/05/F1.large_-768x623.jpg)
 
-A pathway is defined as a network of molecular interactions. Each interaction contains one or more input genes, proteins or other complex molecules, promoters and inhibitors, and one or more output molecules. 
-Pathway analysis exposes networks of regulation between proteins that lead to cell phenotypes. Pathway network research is often able to provide robust solutions, in cases where differential expression at the gene level cannot provide such robustness. 
+## Overview
+https://drive.google.com/file/d/1vkYBcYFeTDggu922dhSLHqB85xVLGVWV/view?usp=sharing
 
-Pathologist (Efroni, Schaefer, & Buetow, 2007) was the first path analysis algorithm to leverage a statistical model of gene expression data to assess the strength of activations in a given group of pathway interactions. A distribution is fitted to data in order to estimate the level of activation in each interaction. (Ben-Hamo 2020) show the advantages of using the Pathologist approach over other methods.
-Our work builds upon this work, improving the algorithm, its performance, supporting more platforms and providing a web based UI and providing accessible and modifiable code. PathWeigh database supports 581 different paths from sources such as Kegg and BioCarta.
-
-## Running The Tool (three options)
-- Run in Colab.
-- Or using Jupyter notebook.
-- Or using binder https://github.com/zurkin1/Pathweigh.git.
+## Running The Tool on Google Colab.
+- Browse to https://colab.research.google.com/.
+- Select the Gitub tab.
+- Enter https://github.com/zurkin1/Pathweigh.git.
+- Select and run Pathweigh.ipynb.
 
 ## Pathway IDs
 Path name | ID

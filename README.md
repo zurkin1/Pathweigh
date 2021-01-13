@@ -6,7 +6,7 @@ https://drive.google.com/file/d/1vkYBcYFeTDggu922dhSLHqB85xVLGVWV/view?usp=shari
 
 ## Running The Tool on Google Colab.
 - Browse to https://colab.research.google.com/.
-- Select the Gitub tab.
+- Select the Github tab.
 - Enter https://github.com/zurkin1/Pathweigh.git.
 - Select and run Pathweigh.ipynb.
 

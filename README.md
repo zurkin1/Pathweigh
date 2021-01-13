@@ -1,10 +1,10 @@
-# Pathweigh
-## A Biochemical Pathway Analysis Tool
+# Pathweigh, A Biochemical Pathway Analysis Tool
 
-## Running The Tool
-- Using Google Colab.
-- Or Python Jupyter notebook.
-- Or using mybinder https://github.com/zurkin1/Pathweigh/blob/master/Pathweigh.ipynb.
+## Overview
+https://drive.google.com/file/d/1vkYBcYFeTDggu922dhSLHqB85xVLGVWV/view?usp=sharing
+
+## Running The Tool Using Google Colab.
+- Open https://github.com/zurkin1/Pathweigh/blob/master/Pathweigh.ipynb and click 'Open in Colab'.
 
 ## Pathway IDs
 Path name | ID

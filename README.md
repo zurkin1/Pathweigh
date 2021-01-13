@@ -6,7 +6,8 @@ https://drive.google.com/file/d/1vkYBcYFeTDggu922dhSLHqB85xVLGVWV/view?usp=shari
 
 ## Running The Tool in Colab
 - Browse to https://colab.research.google.com/.
-- Using the Gitub tab select and open https://github.com/zurkin1/Pathweigh.git.
+- Select the Github tab.
+- Paste and open https://github.com/zurkin1/Pathweigh.git.
 
 ## Pathway IDs
 Path name | ID

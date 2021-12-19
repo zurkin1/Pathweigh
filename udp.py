@@ -16,7 +16,9 @@ import time
 import multiprocessing as mp
 import sys
 
+
 infinitesimal = np.finfo(np.float).eps
+relative_path = './Pathweigh/'
 
 
 def log_likelihood_nb(params, *args):
@@ -128,7 +130,7 @@ def calc_udp_norm(data, aic_test=False):
             continue
         row = row.values.reshape(-1, 1)
         mu, std = norm.fit(row)
-        row_probs = norm.pdf(row, mu, std)[:, 0]
+        row_probs = norm.cdf(row, mu, std)[:, 0]
         my_udp = np.append(my_udp, [row_probs], axis=0)
         if(aic_test):
             logLik = np.sum(norm.logpdf(row, loc=mu, scale=std))
@@ -200,19 +202,20 @@ def chunker_rows(data, size):
 
 
 # Run calc_udp on parallel.
-def calc_udp_multi_process(is_rnaseq):
-    data = pd.read_csv('input.csv', index_col=0)
+def calc_udp_multi_process(mix, is_rnaseq):
+    data = mix #pd.read_csv('input.csv', index_col=0)
     gc.collect()
     print(time.ctime(), f'Calculate UDP, is_rnaseq: {is_rnaseq}')
     data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
-    probes = pd.read_csv('probelinksv2.txt', index_col=0)
-    genes = pd.read_csv('gene_list.csv')
+    probes = pd.read_csv(relative_path + 'probelinksv2.txt', index_col=0)
+    genes = pd.read_csv(relative_path + 'gene_list.csv')
     if (not is_rnaseq):
         data = data.loc[list(set(data.index) & set(probes.probe.values))]
         func = calc_udp_gmm
     else:
+        genes['gene'] = genes.gene.map(str.lower)
         data = data.loc[list(set(data.index) & set(genes.gene.values))]
-        func = calc_udp_nbm
+        func = calc_udp_norm #nbm
     df = pd.DataFrame()
     pool = mp.Pool()  # Use number of CPUs processes.
     results = [pool.apply_async(func, args=(x,)) for x in chunker_rows(data, 700)]

@@ -22,6 +22,7 @@ colors_green_to_red = ['00FF00', '11FF00', '22FF00', '33FF00', '44FF00', '55FF00
 
 # Helper function to convert colour as RGB tuple to hex string
 # cufflinks.go_offline()
+relative_path = './Pathweigh/'
 
 
 def rgb_to_hex(rgb):
@@ -32,13 +33,13 @@ def rgb_to_hex(rgb):
 class path_activity:
     def __init__(self, udp, is_rnaseq=False):
         print(time.ctime(), 'Init activity object')
-        self.orig_paths = pd.read_csv('pathologist.db.txt', delimiter='\t', header=None)
+        self.orig_paths = pd.read_csv(relative_path + 'pathologist.db.txt', delimiter='\t', header=None)
         self.orig_paths.columns = ['path_name', 'path_id', 'molType', 'molName', 'molNum', 'molLink', 'c7', 'c8', 'c9', 'molRole', 'intID', 'intType']
         self.orig_paths.drop(['c8', 'c9'], inplace=True, axis=1)
         self.orig_paths = self.orig_paths.sort_values(['path_id', 'intID'])
-        up2ll = pd.read_csv('UP2LL.txt', delimiter='\t', header=None, index_col=0)
+        up2ll = pd.read_csv(relative_path + 'UP2LL.txt', delimiter='\t', header=None, index_col=0)
         self.up2ll_dict = up2ll[1].to_dict()
-        self.orig_cmplx = pd.read_csv('pathologist.complexes.txt', delimiter='\t', header=None)
+        self.orig_cmplx = pd.read_csv(relative_path + 'pathologist.complexes.txt', delimiter='\t', header=None)
         # Columns: (0==complex ID, 1==molecule type, 3==molecule ID, 4==Links).
         self.orig_cmplx.drop([2, 5, 6, 7], inplace=True, axis=1)
         self.orig_cmplx.columns = ['complex_ID', 'molType', 'molID', 'molLink']
@@ -46,7 +47,7 @@ class path_activity:
 
         if (is_rnaseq):
             # For RNASeq data we need to create a probe to gene dictionary using Affymetrix table.
-            self.probe_to_gene_df = pd.read_csv('HG-U133_Plus_2.na36.annot.csv', index_col=0)
+            self.probe_to_gene_df = pd.read_csv(relative_path + 'HG-U133_Plus_2.na36.annot.csv', index_col=0)
             # Split 'Gene Symbol' in case of multiple genes and stack them in a series.
             new_col = self.probe_to_gene_df['GeneSymbol'].str.split('|', expand=True).stack()
             # Join the new series (after setting a name and index) back to the dataframe.
@@ -56,9 +57,10 @@ class path_activity:
             del self.probe_to_gene_df['GeneSymbol']
             self.probe_to_gene_df.reset_index(inplace=True)
             self.probe_to_gene_df.columns = ['probe', 'gene']
+            self.probe_to_gene_df['gene'] = self.probe_to_gene_df.gene.map(str.lower)
 
         self.udp = udp
-        self.probelinks = pd.read_csv('probelinksv2.txt', index_col=0)  # , header=None
+        self.probelinks = pd.read_csv(relative_path + 'probelinksv2.txt', index_col=0)  # , header=None
         # self.probelinks.drop(2, inplace=True, axis=1)
         # self.probelinks.columns = ['probe', 'link']
         self.probelinks['link'] = self.probelinks.link.replace('---', 0)
@@ -225,9 +227,11 @@ class path_activity:
             df = df.append(p.get()[0])  # f.get(timeout=100)
             print('.', end="")
             sys.stdout.flush()
-        # df.drop(['molRole'], inplace=True, axis=1)
+        df.drop(['molRole'], inplace=True, axis=1)
         df.drop_duplicates(inplace=True)
-        df.to_csv('output_activity.csv', index=False)
+        df['Activity'] = df.Consistency
+        df = pd.pivot(df, columns='sampleID', index='path_name', values='Activity')
+        df.to_csv('output_activity.csv')
         self.activity = df
         print(time.ctime(), "Done.")
 

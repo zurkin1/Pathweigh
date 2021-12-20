@@ -1,0 +1,33 @@
+1) Probelinks:
+   What is the difference between the probelinks files (U133a, U133b,...)?
+   Where are they downloaded from? I like to write a guideline on how to get them.
+
+2) Links:
+    Links are translated to their respective probe UDP.
+  - We assume that each link can be mapped to multiple probes (although each probe can be mapped to one link only).
+    Is that a valid assumption?
+  - How to handle links that cannot be found in the probelinks file?
+    They will get np.NaN for UDP value so that we can remove them later from complex and path calculation.
+    Matlab ignores (removes) interactions that have missing values from activity and consistency calculation.
+  - We take the maximum UDP for all probes of a link to represent the link UDP (this is how Matlab seems to do it).
+    Is that correct? I suggest taking the maximum less than 1 in order to handle non-existing probes.
+
+3) Complexes:
+   - For complex of type protein, its UDP is taken as the maximum of its Links UDP. It seems that Matlab is doing that as well.
+     Is that the right calculation?
+   - RNA complexes never have links, hence no UDP is associated with them. I assign UDP=1 (so they don't affect any
+     calculation they are involved in).
+   - I call complexes that have only proteins/compounds/rna (i.e. no 'sub'-complexes) - 'basic complexes'.
+     How to handle basic-complexes that don't have any proteins attached to them in the complex file?
+     I assign them a UDP=np.NaN and remove them from later calculations both for complexes and paths.
+   - How to handle complexes numbers that cannot be found in complex file (during activity and consistency calculation)?
+     During activity and consistency we only keep complexes with valid UDP value. We removed all NaN earlier.
+   - Some proteins in the complex file don't have links. In that case they will get the default UDP value of np.NaN
+
+4) Paths:
+   - Some paths have only inputs, so we remove them from the results.
+   (The paper suggest leaving them, but with no consistency meaning).
+
+5) Example of different distribution RMA data.
+
+6) Example of RNASeq Data.

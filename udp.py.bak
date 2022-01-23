@@ -224,7 +224,6 @@ def calc_udp_multi_process(mix, is_rnaseq):
         df = df.append(task_df)  # f.get(timeout=100)
         print('.', end="")
         sys.stdout.flush()
-    pool.close()
     df.to_csv('output_udp.csv')
     print(time.ctime(), 'Done.')
     return df

@@ -1,11 +1,18 @@
 # Pathweigh A Biochemical Pathway Analysis Tool
 ![Pathway analysis](https://norbis.w.uib.no/files/2016/05/F1.large_-768x623.jpg)
 
-## Running The Tool on Google Colab.
-- Browse to https://colab.research.google.com/.
-- Select the Github tab.
-- Enter https://github.com/zurkin1/Pathweigh.git.
-- Select and run Pathweigh.ipynb.
+## Requirements
+-numpy
+-scipy
+-pandas
+-scikit-learn
+-ipywidgets
+-networkx
+-plotly
+-bs4
+
+## Running
+- Input: a csv file called input.csv that contains samples and gene RNA expression levels.
 
 ## Pathway IDs
 Path name | ID

@@ -3,6 +3,7 @@
 
 ## Requirements
 
+<<<<<<< HEAD
 - numpy
 scipy
 pandas
@@ -11,6 +12,13 @@ ipywidgets
 networkx
 plotly
 bs4.
+=======
+## Running The Tool on Google Colab.
+- Browse to https://colab.research.google.com/.
+- Select the Gitub tab.
+- Enter https://github.com/zurkin1/Pathweigh.git.
+- Select and run Pathweigh.ipynb.
+>>>>>>> parent of c2ad2d5 (Update README.md)
 
 ## Running
 - Input: a csv file called input.csv that contains samples and gene RNA expression levels.

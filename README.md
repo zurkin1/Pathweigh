@@ -10,7 +10,7 @@ scikit-learn
 ipywidgets
 networkx
 plotly
-bs4
+bs4.
 
 ## Running
 - Input: a csv file called input.csv that contains samples and gene RNA expression levels.

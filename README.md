@@ -21,7 +21,7 @@
     #    udp, aic = func(sample_data, aic_test=True)
     #    print(f'Function: {func.__name__}, aic: {aic}')
     #calc_udp_multi_process(data, True)
-
+'''
     #Calculate activity.
     udp = pd.read_csv('./data/output_udp.csv', index_col = 0)
     with open('./data/pid', 'rb') as f:
@@ -30,6 +30,6 @@
     path_id = 'hsa05221'
     sample = udp['17-002']
     process_sample(kegg, path_id, sample)
-
+'''
 ## Pathway IDs
 https://github.com/NCIP/pathway-interaction-database/tree/master/download.

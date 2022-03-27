@@ -1,9 +1,6 @@
 # Pathweigh A Biochemical Pathway Analysis Tool
 ![Pathway analysis](https://norbis.w.uib.no/files/2016/05/F1.large_-768x623.jpg)
 
-## Overview
-https://drive.google.com/file/d/1vkYBcYFeTDggu922dhSLHqB85xVLGVWV/view?usp=sharing
-
 ## Running The Tool on Google Colab.
 - Browse to https://colab.research.google.com/.
 - Select the Github tab.

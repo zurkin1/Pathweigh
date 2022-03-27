@@ -22,7 +22,7 @@ colors_green_to_red = ['00FF00', '11FF00', '22FF00', '33FF00', '44FF00', '55FF00
 
 # Helper function to convert colour as RGB tuple to hex string
 # cufflinks.go_offline()
-relative_path = './Pathweigh/'
+relative_path = './'
 
 
 def rgb_to_hex(rgb):
@@ -229,7 +229,7 @@ class path_activity:
             sys.stdout.flush()
         df.drop(['molRole'], inplace=True, axis=1)
         df.drop_duplicates(inplace=True)
-        df['Activity'] = df.Consistency
+        df['Activity'] = df.Activity #Consistency
         df = pd.pivot(df, columns='sampleID', index='path_name', values='Activity')
         df.to_csv('output_activity.csv')
         self.activity = df
@@ -525,9 +525,9 @@ if __name__ == '__main__':
     # activity_obj.xmlparser(1,1)
 
     udp = pd.read_csv('output_udp.csv', index_col=0)
-    activity_obj = path_activity(udp, False)
-    # activity_obj.calc_activity_consistency_multi_process()
-    activity_obj.graphparser(100035, 1)
+    activity_obj = path_activity(udp, True)
+    activity_obj.calc_activity_consistency_multi_process()
+    #activity_obj.graphparser(100035, 1)
 
     # Bladder
     # activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_schizophrenia_gse17612.csv', '/data/output_activity_muscle_gse28422.csv')

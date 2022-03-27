@@ -1,8 +1,0 @@
-numpy
-scipy
-pandas
-scikit-learn
-ipywidgets
-networkx
-plotly
-bs4

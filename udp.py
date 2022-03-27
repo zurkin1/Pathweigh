@@ -18,7 +18,7 @@ import sys
 
 
 infinitesimal = np.finfo(np.float).eps
-relative_path = './Pathweigh/'
+relative_path = './'
 
 
 def log_likelihood_nb(params, *args):
@@ -97,7 +97,7 @@ def calc_udp_nbm(data, aic_test=False):
         res = nbfit(row)
         size = res['size']
         prob = res['prob']
-        row_probs = nbinom.pmf(row, size, prob)
+        row_probs = nbinom.cdf(row, size, prob)
         my_udp = np.append(my_udp, [row_probs], axis=0)
         if(aic_test):
             row[row == 0] = 1
@@ -169,7 +169,7 @@ def calc_udp_poisson(data, aic_test=False):
         #P2 = sorted(result, key=lambda x: x[0])[0][1]
         # Poissong maximum likelihood estimator has a closed form formula.
         lmba = np.mean(row)
-        row_probs = poisson.pmf(row, lmba)
+        row_probs = poisson.cdf(row, lmba)
         my_udp = np.append(my_udp, [row_probs], axis=0)
         if(aic_test):
             row[row <= 0] = 1
@@ -207,6 +207,7 @@ def calc_udp_multi_process(mix, is_rnaseq):
     gc.collect()
     print(time.ctime(), f'Calculate UDP, is_rnaseq: {is_rnaseq}')
     data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
+    data.index = data.index.map(str.lower)
     probes = pd.read_csv(relative_path + 'probelinksv2.txt', index_col=0)
     genes = pd.read_csv(relative_path + 'gene_list.csv')
     if (not is_rnaseq):
@@ -215,10 +216,11 @@ def calc_udp_multi_process(mix, is_rnaseq):
     else:
         genes['gene'] = genes.gene.map(str.lower)
         data = data.loc[list(set(data.index) & set(genes.gene.values))]
-        func = calc_udp_norm #nbm
+        func = calc_udp_poisson
     df = pd.DataFrame()
     pool = mp.Pool()  # Use number of CPUs processes.
     results = [pool.apply_async(func, args=(x,)) for x in chunker_rows(data, 700)]
+    #results = [func(x) for x in chunker_rows(data, 100)]
     for p in results:
         task_df, aic = p.get()
         df = df.append(task_df)  # f.get(timeout=100)
@@ -231,9 +233,9 @@ def calc_udp_multi_process(mix, is_rnaseq):
 
 
 if __name__ == '__main__':
-    #data = pd.read_csv('./data/GSE29013_RMA.csv', index_col=0)
-    #data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
-    #sample_data = data.sample(n=1000, replace=False)
+    data = pd.read_csv('../../../Downloads/TPM_GeneID.csv', index_col=0)
+    data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
+    sample_data = data.sample(n=1000, replace=False)
     # for func in [calc_udp_poisson, calc_udp_nbm, calc_udp_gmm, calc_udp_norm, calc_udp_gennorm]:
     #    udp, aic = func(sample_data, aic_test=True)
     #    print(f'Function: {func.__name__}, aic: {aic}')
@@ -242,7 +244,7 @@ if __name__ == '__main__':
     #   Function: calc_udp_gmm, aic: 162.60641335671778
     #   Function: calc_udp_norm, aic: 169.15685593656568
     #   Function: calc_udp_gennorm, aic: 160.8001788887676
-    calc_udp_multi_process(False)
+    calc_udp_multi_process(data, True)
 
 # Which one is visually better?
 #plt.hist(X, bins=20, normed=True)

@@ -15,10 +15,11 @@ import gc
 import time
 import multiprocessing as mp
 import sys
+import pickle
 
 
 infinitesimal = np.finfo(np.float).eps
-relative_path = './'
+relative_path = './data/'
 
 
 def log_likelihood_nb(params, *args):
@@ -203,7 +204,7 @@ def chunker_rows(data, size):
 
 # Run calc_udp on parallel.
 def calc_udp_multi_process(mix, is_rnaseq):
-    data = mix #pd.read_csv('input.csv', index_col=0)
+    data = pd.read_csv(relative_path + 'input.csv', index_col=0)
     gc.collect()
     print(time.ctime(), f'Calculate UDP, is_rnaseq: {is_rnaseq}')
     data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
@@ -215,7 +216,7 @@ def calc_udp_multi_process(mix, is_rnaseq):
         func = calc_udp_gmm
     else:
         genes['gene'] = genes.gene.map(str.lower)
-        data = data.loc[list(set(data.index) & set(genes.gene.values))]
+        #data = data.loc[list(set(data.index) & set(genes.gene.values))]
         func = calc_udp_poisson
     df = pd.DataFrame()
     pool = mp.Pool()  # Use number of CPUs processes.
@@ -227,15 +228,42 @@ def calc_udp_multi_process(mix, is_rnaseq):
         print('.', end="")
         sys.stdout.flush()
     pool.close()
-    df.to_csv('output_udp.csv')
+    df.to_csv(relative_path + 'output_udp.csv')
     print(time.ctime(), 'Done.')
     return df
 
 
+#Calculate activity and consistency of a path. Output table columns are (sampleID, path_id, activity, consistency)
+def process_sample(kegg, path_id, sample):
+    mapping = kegg['mapping']
+    path_inter_ids = kegg['pathList'][path_id]
+    total_activity = 0
+    total_inter = 0
+    for inter_id in path_inter_ids:
+        interaction = kegg['interactionList'].loc[kegg['interactionList']['interaction.id'] == inter_id]
+        inputm = interaction.iloc[0]['input']
+        outputm = interaction.iloc[0]['output']
+        node_in = mapping.loc[mapping['node.id'] == inputm]
+        node_out = mapping.loc[mapping['node.id'] == outputm]
+        try:
+            activity_in = sample.loc[[str.lower(x) for x in node_in['symbol'].values]].prod()
+            activity_out = sample.loc[[str.lower(x) for x in node_out['symbol'].values]].prod()
+            total_inter += 1
+            total_activity += activity_in
+        except:
+            pass
+    print(total_activity/total_inter)
+    
+    #nn = kegg['node.name']
+    #nt = kegg['node.type']
+    #ind = nn.index('RPS6KB2')
+    #nt[ind]
+
+
 if __name__ == '__main__':
-    data = pd.read_csv('../../../Downloads/TPM_GeneID.csv', index_col=0)
-    data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
-    sample_data = data.sample(n=1000, replace=False)
+    #data = pd.read_csv(relative_path + './input.csv', index_col=0)
+    #data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
+    #sample_data = data.sample(n=1000, replace=False)
     # for func in [calc_udp_poisson, calc_udp_nbm, calc_udp_gmm, calc_udp_norm, calc_udp_gennorm]:
     #    udp, aic = func(sample_data, aic_test=True)
     #    print(f'Function: {func.__name__}, aic: {aic}')
@@ -244,15 +272,23 @@ if __name__ == '__main__':
     #   Function: calc_udp_gmm, aic: 162.60641335671778
     #   Function: calc_udp_norm, aic: 169.15685593656568
     #   Function: calc_udp_gennorm, aic: 160.8001788887676
-    calc_udp_multi_process(data, True)
+    #calc_udp_multi_process(data, True)
 
-# Which one is visually better?
-#plt.hist(X, bins=20, normed=True)
-#plt.plot(range(260), ss.nbinom.pmf(range(260), np.round(P1[0]), P1[1], np.round(P1[2])), 'g-')
-#plt.plot(range(260), ss.nbinom.pmf(range(260), np.round(P2[0]), P2[1], np.round(P2[2])), 'r-')
-# Plotting fit vs. RMA values.
-#row = udp.iloc[0:,]
-#plt.hist(sample_data.iloc[0,:], bins=20, normed=True)
-# plt.show()
-#plt.hist(row, bins=20, normed=False)
-# plt.show()
+    # Which one is visually better?
+    #plt.hist(X, bins=20, normed=True)
+    #plt.plot(range(260), ss.nbinom.pmf(range(260), np.round(P1[0]), P1[1], np.round(P1[2])), 'g-')
+    #plt.plot(range(260), ss.nbinom.pmf(range(260), np.round(P2[0]), P2[1], np.round(P2[2])), 'r-')
+    # Plotting fit vs. RMA values.
+    #row = udp.iloc[0:,]
+    #plt.hist(sample_data.iloc[0,:], bins=20, normed=True)
+    # plt.show()
+    #plt.hist(row, bins=20, normed=False)
+    # plt.show()
+
+    udp = pd.read_csv('./data/output_udp.csv', index_col = 0)
+    with open('./data/pid', 'rb') as f:
+        paths = pickle.load(f)
+    kegg = paths['PID.db']['KEGG']
+    path_id = 'hsa05221'
+    sample = udp['17-002']
+    process_sample(kegg, path_id, sample)

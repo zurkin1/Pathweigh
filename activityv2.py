@@ -42,12 +42,3 @@ il = kegg['interactionList']
 mapping = kegg['mapping']
 nn = kegg['node.name']
 nt = kegg['node.type']
-
-#pd.DataFrame.from_dict(pl, orient='index').T.to_csv('pathlist.csv')
-
-#k = pd.DataFrame({'node_name': nn, 'node_type': nt})
-#k.to_csv('node.csv')
-
-#il.to_csv('interactions.csv')
-
-mapping.to_csv('mappings.csv')

@@ -29,9 +29,25 @@ def process_samples(udp_chunk):
     #nt[ind]
 
 
-udp = pd.read_csv('Pathweigh/data/output_udp_zurkin.csv', index_col = 0)
-with open('pid', 'rb') as f:
+#udp = pd.read_csv('Pathweigh/data/output_udp_zurkin.csv', index_col = 0)
+with open('./data/pid', 'rb') as f:
   paths = pickle.load(f)
+for i in paths['PID.db']['KEGG']:
+  print(i, type(paths['PID.db']['KEGG'][i]), len(paths['PID.db']['KEGG'][i]))
 kegg = paths['PID.db']['KEGG']
-path_id = 'hsa05221'
-process_samples(udp)
+#path_id = 'hsa05221'
+#process_samples(udp)
+pl = kegg['pathList']
+il = kegg['interactionList']
+mapping = kegg['mapping']
+nn = kegg['node.name']
+nt = kegg['node.type']
+
+#pd.DataFrame.from_dict(pl, orient='index').T.to_csv('pathlist.csv')
+
+#k = pd.DataFrame({'node_name': nn, 'node_type': nt})
+#k.to_csv('node.csv')
+
+#il.to_csv('interactions.csv')
+
+mapping.to_csv('mappings.csv')

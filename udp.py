@@ -233,7 +233,7 @@ def calc_udp_multi_process(mix, is_rnaseq):
     return df
 
 
-#Calculate activity and consistency of a path. Output table columns are (sampleID, path_id, activity, consistency)
+#Calculate activity and consistency of a path.
 def process_sample(kegg, path_id, sample):
     mapping = kegg['mapping']
     path_inter_ids = kegg['pathList'][path_id]
@@ -254,37 +254,21 @@ def process_sample(kegg, path_id, sample):
             pass
     print(total_activity/total_inter)
     
-    #nn = kegg['node.name']
-    #nt = kegg['node.type']
+    nn = kegg['node.name']
+    nt = kegg['node.type'] #Complex, compound, protein.
     #ind = nn.index('RPS6KB2')
     #nt[ind]
 
 
 if __name__ == '__main__':
+    #Calculate UDP.
     #data = pd.read_csv(relative_path + './input.csv', index_col=0)
-    #data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
-    #sample_data = data.sample(n=1000, replace=False)
-    # for func in [calc_udp_poisson, calc_udp_nbm, calc_udp_gmm, calc_udp_norm, calc_udp_gennorm]:
+    #for func in [calc_udp_poisson, calc_udp_nbm, calc_udp_gmm, calc_udp_norm, calc_udp_gennorm]:
     #    udp, aic = func(sample_data, aic_test=True)
     #    print(f'Function: {func.__name__}, aic: {aic}')
-    #   Function: calc_udp_poisson, aic: 207.66830882318942
-    #   Function: calc_udp_nbm, aic: 240.239110524907
-    #   Function: calc_udp_gmm, aic: 162.60641335671778
-    #   Function: calc_udp_norm, aic: 169.15685593656568
-    #   Function: calc_udp_gennorm, aic: 160.8001788887676
     #calc_udp_multi_process(data, True)
 
-    # Which one is visually better?
-    #plt.hist(X, bins=20, normed=True)
-    #plt.plot(range(260), ss.nbinom.pmf(range(260), np.round(P1[0]), P1[1], np.round(P1[2])), 'g-')
-    #plt.plot(range(260), ss.nbinom.pmf(range(260), np.round(P2[0]), P2[1], np.round(P2[2])), 'r-')
-    # Plotting fit vs. RMA values.
-    #row = udp.iloc[0:,]
-    #plt.hist(sample_data.iloc[0,:], bins=20, normed=True)
-    # plt.show()
-    #plt.hist(row, bins=20, normed=False)
-    # plt.show()
-
+    #Calculate activity.
     udp = pd.read_csv('./data/output_udp.csv', index_col = 0)
     with open('./data/pid', 'rb') as f:
         paths = pickle.load(f)

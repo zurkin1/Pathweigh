@@ -136,7 +136,8 @@ class path_activity:
         cmplx['pr'] = cmplx['molLink'].apply(lambda x: max([self.link_to_udp(i) for i in str(x).split(',')]))
         # Some rows have 'rna' type with no links. They are not really used in complexes.
         cmplx.loc[cmplx['molType'] == 'rna', 'pr'] = 1
-        # Compounds are assumed to always be present (UDP == 1).cmplx.loc[cmplx['molType'] == 'compound', 'pr'] = 1
+        # Compounds are assumed to always be present (UDP == 1).
+        cmplx.loc[cmplx['molType'] == 'compound', 'pr'] = 1
 
         # Handle basic complexes. The product of molecules on a path are now the accurate basic complex UDP.
         # non-basic complexes don't have links.
@@ -524,7 +525,7 @@ if __name__ == '__main__':
     # activity_obj = path_activity(udp_filename='/data/output_udp.csv', rnaseq_file=0)  # Non RNAseq object
     # activity_obj.xmlparser(1,1)
 
-    udp = pd.read_csv('output_udp.csv', index_col=0)
+    udp = pd.read_csv('./data/output_udp.csv', index_col=0)
     activity_obj = path_activity(udp, True)
     activity_obj.calc_activity_consistency_multi_process()
     #activity_obj.graphparser(100035, 1)

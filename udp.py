@@ -203,7 +203,7 @@ def chunker_rows(data, size):
 
 
 # Run calc_udp on parallel.
-def calc_udp_multi_process(mix, is_rnaseq):
+def calc_udp_multi_process(is_rnaseq):
     data = pd.read_csv(relative_path + 'input.csv', index_col=0)
     gc.collect()
     print(time.ctime(), f'Calculate UDP, is_rnaseq: {is_rnaseq}')

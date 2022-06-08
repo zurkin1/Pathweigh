@@ -60,6 +60,9 @@ class path_activity:
             self.probe_to_gene_df['gene'] = self.probe_to_gene_df.gene.map(str.lower)
 
         self.udp = udp
+        if len(udp) == 0:
+            print('Empty UDP.')
+            sys.exit()
         self.probelinks = pd.read_csv(relative_path + 'probelinksv2.txt', index_col=0)  # , header=None
         # self.probelinks.drop(2, inplace=True, axis=1)
         # self.probelinks.columns = ['probe', 'link']
@@ -216,7 +219,7 @@ class path_activity:
         cols = self.udp.columns
         return [cols[pos:min(pos + size, len_df)] for pos in range(0, len_df, size)]
 
-    # Run calc_udp on parallel.
+    # Run activity on parallel.
     def calc_activity_consistency_multi_process(self):
         gc.collect()
         print(time.ctime(), 'Calculate activity and consistency...')
@@ -225,14 +228,17 @@ class path_activity:
         results = [pool.apply_async(self.process_samples, args=(x,))
                    for x in self.chunker_columns(20)]
         for p in results:
-            df = df.append(p.get()[0])  # f.get(timeout=100)
+            df = pd.concat([df, p.get()[0]]) # f.get(timeout=100)
             print('.', end="")
             sys.stdout.flush()
+
+        #process_samples(self.udp)[0]
         df.drop(['molRole'], inplace=True, axis=1)
         df.drop_duplicates(inplace=True)
-        df['Activity'] = df.Activity #Consistency
+        #df['Activity'] = df.Activity #Consistency
         df = pd.pivot(df, columns='sampleID', index='path_name', values='Activity')
-        df.to_csv('output_activity.csv')
+        pool.close()
+        df.to_csv('./data/output_activity.csv')
         self.activity = df
         print(time.ctime(), "Done.")
 

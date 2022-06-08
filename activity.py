@@ -22,7 +22,7 @@ colors_green_to_red = ['00FF00', '11FF00', '22FF00', '33FF00', '44FF00', '55FF00
 
 # Helper function to convert colour as RGB tuple to hex string
 # cufflinks.go_offline()
-relative_path = './'
+relative_path = './data/'
 
 
 def rgb_to_hex(rgb):

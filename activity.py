@@ -11,6 +11,7 @@ except ImportError:
     from .udp import calc_udp_gmm, calc_udp_nbm
 from scipy.stats import mannwhitneyu as mann
 import plotly.graph_objects as go
+import plotly.offline as py_offline
 import networkx as nx
 #import cufflinks
 
@@ -87,6 +88,7 @@ class path_activity:
         probe_to_pr = pd.merge(
             self.probelinks, self.probe_to_gene_df, on='probe', how='left')
         probe_to_pr = pd.merge(probe_to_pr, udp_sample, how='left')
+        self.link_probe_gene = probe_to_pr.dropna().groupby('link').max()
         probe_to_pr = probe_to_pr.groupby(['link'], sort=False)['pr'].max()
         self.link_to_pr_dict = probe_to_pr.to_dict()
 
@@ -224,6 +226,7 @@ class path_activity:
         gc.collect()
         print(time.ctime(), 'Calculate activity and consistency...')
         df = pd.DataFrame()
+
         pool = mp.Pool()  # Use number of CPUs processes.
         results = [pool.apply_async(self.process_samples, args=(x,))
                    for x in self.chunker_columns(20)]
@@ -327,7 +330,7 @@ class path_activity:
                     '</relation>'
         xml += '</pathway>'
         # _{path_id}_{sample_num}
-        text_file = open("output_path.xml", "w")
+        text_file = open(relative_path + "output_path.xml", "w")
         text_file.write(xml)
         text_file.close()
         return xml
@@ -346,7 +349,13 @@ class path_activity:
         self.G.nodes[int_id]['consistency'] = pr_con
         self.G.nodes[int_id]['fgcolor'] = f"#{colors_green_to_red[fg_color]}"
         self.G.nodes[int_id]['bgcolor'] = f"#{bg_color}"
+        if 'fm_' in row["molName"]:
+            first_link = self.rem_link_prefix(row["molLink"].split(',')[0])
+            if first_link in self.link_probe_gene.index:
+                row["molName"] = self.link_probe_gene.loc[first_link].gene
         self.G.nodes[int_id]['node_name'] = row["molName"]
+        
+
         # gr.width = min(60, 8 * len(row["intType"]))
         # gr.height = 15
         # gr.type = 'circle'
@@ -367,6 +376,10 @@ class path_activity:
                     bg_color = "C3B6B6"  # Grey
 
                 self.G.add_node(mol_id)
+                if 'fm_' in row["molName"]:
+                    first_link = self.rem_link_prefix(row["molLink"].split(',')[0])
+                    if first_link in self.link_probe_gene.index:
+                        row["molName"] = self.link_probe_gene.loc[first_link].gene
                 self.G.nodes[mol_id]['node_name'] = row["molName"]
                 self.G.nodes[mol_id]['fgcolor'] = f"#{colors_green_to_red[fg_color]}"
                 self.G.nodes[mol_id]['bgcolor'] = f"#{bg_color}"
@@ -377,10 +390,14 @@ class path_activity:
                 self.G.nodes[mol_id]['type'] = row["molType"]
 
             # Add an edge from the molecule to the reaction.
-            if (row['molRole'] == 'input' or row['molRole'] == 'agent' or row['molRole'] == 'inhibitor'):
+            if (row['molRole'] == 'input' or row['molRole'] == 'agent'):
                 entry1 = int(row["molNum"])
                 entry2 = int(row["intID"])
                 subtypes = [("activation", "-->")]
+            elif (row['molRole'] == 'inhibitor'):
+                entry1 = int(row["molNum"])
+                entry2 = int(row["intID"])
+                subtypes = [("inhibitor", "--|")]
             elif (row['molRole'] == 'output'):
                 entry1 = int(row["intID"])
                 entry2 = int(row["molNum"])
@@ -388,6 +405,7 @@ class path_activity:
             self.G.add_edge(entry1, entry2)
 
         return
+
 
     def graphparser(self, path_id, sample_num):
         if (isinstance(path_id, int)):
@@ -401,7 +419,10 @@ class path_activity:
         self.G = nx.DiGraph()
 
         # We need to get the extra information of interactions activity (that is not saved in the standard calc_activity_consistency run).
-        sampleID = self.udp.columns[int(sample_num)]
+        if (isinstance(sample_num, int)):
+            sampleID = self.udp.columns[int(sample_num)]
+        else:
+            sampleID = sample_num
         _, prbs = self.process_samples([sampleID])
         prbs = prbs.loc[prbs['path_id'] == path_id]
         prbs = prbs[['molNum', 'molRole', 'pr', 'pr_output', 'intID', 'interaction_activity', 'interaction_consistency']]
@@ -409,7 +430,8 @@ class path_activity:
 
         paths.groupby('intID').apply(self.process_interaction)
         #self.pos = nx.nx_pydot.graphviz_layout(self.G)
-        self.pos = nx.drawing.layout.circular_layout(self.G)
+        #self.pos = nx.drawing.layout.circular_layout(self.G)
+        self.pos = nx.kamada_kawai_layout(self.G)
         #import IPython
         #IPython.embed()
 
@@ -506,8 +528,8 @@ class path_activity:
         fig.add_trace(go.Scatter(
             x=[400], y=[-240], mode="text", name="Text", text=["Low Activity"], textfont=dict(family="sans serif", size=18, color="green")))
 
-        fig.show()
-
+        #fig.show()
+        py_offline.plot(fig)
         return
 
     def calc_mann_whitney(self, pathname, file1, file2):
@@ -534,7 +556,7 @@ if __name__ == '__main__':
     udp = pd.read_csv('./data/output_udp.csv', index_col=0)
     activity_obj = path_activity(udp, True)
     activity_obj.calc_activity_consistency_multi_process()
-    #activity_obj.graphparser(100035, 1)
+    activity_obj.graphparser(725689, 1)
 
     # Bladder
     # activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_schizophrenia_gse17612.csv', '/data/output_activity_muscle_gse28422.csv')

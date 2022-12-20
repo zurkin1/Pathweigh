@@ -89,9 +89,9 @@ def calc_udp_nbm(data, aic_test=False):
     my_udp = np.empty((0, len(data.columns)))
     aic = 0
     for index, row in data.iterrows():
-        row = row.astype(int).values
+        #row = row.astype(int).values
         # Remove outliers
-        if (max(row) < 5 or np.count_nonzero(row) < 10):  # (row == 0).all() or np.sum(row)<200
+        if (np.count_nonzero(row) < 10):  # (row == 0).all() or np.sum(row)<200 or max(row) < 5
             my_udp = np.append(my_udp, [np.zeros(len(data.columns))], axis=0)
             continue
         row[np.argsort(row)[-3]] = row[np.argsort(row)[-2]] = row[np.argsort(row)[-1]] = row[np.argsort(row)[-4]]
@@ -217,7 +217,7 @@ def calc_udp_multi_process(is_rnaseq):
     else:
         genes['gene'] = genes.gene.map(str.lower)
         #data = data.loc[list(set(data.index) & set(genes.gene.values))]
-        func = calc_udp_poisson
+        func = calc_udp_nbm #calc_udp_poisson
     df = pd.DataFrame()
     pool = mp.Pool()  # Use number of CPUs processes.
     results = [pool.apply_async(func, args=(x,)) for x in chunker_rows(data, 700)]

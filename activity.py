@@ -71,34 +71,36 @@ class path_activity:
         self.probelinks['link'] = self.probelinks.link.replace('---', 0)
         self.probelinks['link'] = pd.to_numeric(self.probelinks.link)
         # Use only probes or genes that appear in paths.
-        # self.filter_probes()
-
+        self.filter_probes()
+        self.probe_to_pr = pd.merge(
+            self.probelinks, self.probe_to_gene_df, on='probe', how='left')
+        self.link_to_pr_dict = {}
+    
     # Create dictionaries mapping links to the relevant probabilities (UDP), for specific sample_num.
     def calc_link_to_pr(self, sample):
         udp_sample = self.udp.loc[:, sample].copy().reset_index()
         udp_sample.columns = ['probe', 'pr']
         probe_to_pr = pd.merge(self.probelinks, udp_sample, how='left')
         probe_to_pr = probe_to_pr.groupby(['link'], sort=False)['pr'].max()
-        self.link_to_pr_dict = probe_to_pr.to_dict()
+        self.link_to_pr_dict[sample] = probe_to_pr.to_dict()
 
     def calc_link_to_gene_to_pr(self, sample):
         udp_sample = self.udp.loc[:, sample].copy().reset_index()
         udp_sample.columns = ['gene', 'pr']
         # udp_sample['gene'] = udp_sample.gene.apply(lambda x: x.split('|')[0]) #Remove Entre gene IDs.
         # probelinks['gene'] = probelinks.probe.apply(lambda x: probe_to_gene_dict.get(x, None))
-        probe_to_pr = pd.merge(
-            self.probelinks, self.probe_to_gene_df, on='probe', how='left')
-        probe_to_pr = pd.merge(probe_to_pr, udp_sample, how='left')
-        self.link_probe_gene = probe_to_pr.dropna().groupby('link').max()
+
+        probe_to_pr = pd.merge(self.probe_to_pr, udp_sample, how='left')
+        #self.link_probe_gene = probe_to_pr.dropna().groupby('link').max()
         probe_to_pr = probe_to_pr.groupby(['link'], sort=False)['pr'].max()
-        self.link_to_pr_dict = probe_to_pr.to_dict()
+        self.link_to_pr_dict[sample] = probe_to_pr.to_dict()
 
     # Replace link with UDP.
-    def link_to_udp(self, link):
+    def link_to_udp(self, link, sample):
         if ('LL' in link):
-            return (self.link_to_pr_dict.get(int(link.replace('LL:', '')), np.NaN))
+            return (self.link_to_pr_dict[sample].get(int(link.replace('LL:', '')), np.NaN))
         if ('UP' in link):
-            return (self.link_to_pr_dict.get(int(self.up2ll_dict.get(link.replace('UP:', ''), 0)), np.NaN))
+            return (self.link_to_pr_dict[sample].get(int(self.up2ll_dict.get(link.replace('UP:', ''), 0)), np.NaN))
         return np.NaN
 
     # Remove link prefix.
@@ -136,10 +138,10 @@ class path_activity:
     # First we calculate UDP for basics, by mutiplying UDPs of corresponding proteins. Then we can calculate
     # the UDP of all complexes by, again, multiplying all UDPs of mulecules (proteins and basics) in a path.
     # Molecules with no links (i.e. basic complexes) will get a default link. In that case they will get the default UDP value of 1.
-    def calc_cmplx_to_pr(self):
+    def calc_cmplx_to_pr(self, sample):
         cmplx = self.orig_cmplx.copy()
         # Handle molecules (proteins, rnas and compouns). Parse a link string in the links column in the pathways file or the complexes file.
-        cmplx['pr'] = cmplx['molLink'].apply(lambda x: max([self.link_to_udp(i) for i in str(x).split(',')]))
+        cmplx['pr'] = cmplx['molLink'].apply(lambda x: max([self.link_to_udp(i, sample) for i in str(x).split(',')]))
         # Some rows have 'rna' type with no links. They are not really used in complexes.
         cmplx.loc[cmplx['molType'] == 'rna', 'pr'] = 1
         # Compounds are assumed to always be present (UDP == 1).
@@ -172,12 +174,12 @@ class path_activity:
                 self.calc_link_to_pr(sample)
             else:
                 self.calc_link_to_gene_to_pr(sample)
-            cmplx_to_pr_dict = self.calc_cmplx_to_pr()
+            cmplx_to_pr_dict = self.calc_cmplx_to_pr(sample)
             paths = self.orig_paths.copy()
             # gc.collect()
             # If a molecule does not have a probability we need to remove the whole interaction from activity and consistency calculations.
             paths.loc[paths.molType == 'protein', 'pr'] = paths.molLink.apply(lambda x: max([self.link_to_udp(
-                i) for i in str(x).split(',')]))  # Max returns NaN if there is at least one NaN in the list.
+                i, sample) for i in str(x).split(',')]))  # Max returns NaN if there is at least one NaN in the list.
             # Compounds are assumed to always be present
             paths.loc[paths.molType == 'compound', 'pr'] = 1
             paths.loc[paths.molType == 'rna', 'pr'] = 1
@@ -230,13 +232,13 @@ class path_activity:
 
         pool = mp.Pool()  # Use number of CPUs processes.
         results = [pool.apply_async(self.process_samples, args=(x,))
-                   for x in self.chunker_columns(20)]
+                   for x in self.chunker_columns(1000)]
         for p in results:
             df = pd.concat([df, p.get()[0]]) # f.get(timeout=100)
             print('.', end="")
             sys.stdout.flush()
 
-        #process_samples(self.udp)[0]
+        #df = self.process_samples(self.udp)[0]
         df.drop(['molRole'], inplace=True, axis=1)
         df.drop_duplicates(inplace=True)
         #df['Activity'] = df.Activity #Consistency
@@ -555,6 +557,7 @@ if __name__ == '__main__':
     # activity_obj.xmlparser(1,1)
 
     udp = pd.read_csv('./data/output_udp.csv', index_col=0)
+    udp.index = udp.index.map(str.lower)
     activity_obj = path_activity(udp, True)
     activity_obj.calc_activity_consistency_multi_process()
     #activity_obj.graphparser(725689, 1)

@@ -1,13 +1,10 @@
 # Pathweigh A Biochemical Pathway Analysis Tool
 ![Pathway analysis](https://norbis.w.uib.no/files/2016/05/F1.large_-768x623.jpg)
 
-## Running The Tool on Google Colab.
-- Browse to https://colab.research.google.com/.
-- Select the Github tab.
-- Enter https://github.com/zurkin1/Pathweigh.git.
-- Select and run Pathweigh.ipynb.
+## In order to run Running PathWeigh please refer to the notebook folder where twe notebooks are availabe. One demonstrating bulk RNAseq data, and the other single-cell RNAseq data.
 
-## Pathway IDs
+
+## List of suupported pathways.
 Path name | ID
 --------- | --
 1- and 2-Methylnaphthalene degradation(Kegg) | 708708

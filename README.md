@@ -1,10 +1,10 @@
 # Pathweigh A Biochemical Pathway Analysis Tool
 ![Pathway analysis](https://norbis.w.uib.no/files/2016/05/F1.large_-768x623.jpg)
 
-In order to run Running PathWeigh please refer to the notebook folder where twe notebooks are availabe. One demonstrating bulk RNAseq data, and the other single-cell RNAseq data.
+In order to run PathWeigh please refer to the notebook folder where twe notebooks are availabe. One demonstrating bulk RNAseq data, and the other single-cell RNAseq data.
 
 
-## List of suupported pathways.
+## List of supported pathways.
 Path name | ID
 --------- | --
 1- and 2-Methylnaphthalene degradation(Kegg) | 708708

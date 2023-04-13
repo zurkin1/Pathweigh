@@ -550,10 +550,6 @@ class path_activity:
 
 
 if __name__ == '__main__':
-    # activity_obj = path_activity(rma_filename='c:/Work/src/Bayes/Pathweigh/other/firebrowse/ESCA.csv', rnaseq_file=1)  # /data/GSE29013_RMA.csv
-    # activity_obj.calc_df_multi_process()
-    # activity_obj.calc_activity_consistency_multi_process()
-    # activity_obj = path_activity(udp_filename='/data/output_udp.csv', rnaseq_file=0)  # Non RNAseq object
     # activity_obj.xmlparser(1,1)
 
     udp = pd.read_csv('./data/output_udp.csv', index_col=0)
@@ -561,53 +557,3 @@ if __name__ == '__main__':
     activity_obj = path_activity(udp, True)
     activity_obj.calc_activity_consistency_multi_process()
     #activity_obj.graphparser(725689, 1)
-
-    # Bladder
-    # activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_schizophrenia_gse17612.csv', '/data/output_activity_muscle_gse28422.csv')
-    # Stat: 2284.0, P-value: 0.029288669514444116, n1: 51, n2: 110, m_u(expected under H0): 2805.0
-
-    # activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_bladder_gse31684.csv', '/data/output_activity_muscle_gse28422.csv')
-    # Stat: 2334.0, P-value: 1.3013141984774421e-11, n1: 93, n2: 110, m_u(expected under H0): 5115.0
-
-    # activity_obj.calc_mann_whitney('Bladder cancer(Kegg)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
-    # Stat: 4124.0, P-value: 2.7848199372065743e-13, n1: 156, n2: 110, m_u(expected under H0): 8580.0
-
-    # BRCA
-    # activity_obj.calc_mann_whitney('BRCA pathway reduction(Rotem)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
-    # Stat: 7658.0, P-value: 0.0679383681844674, n1: 156, n2: 110, m_u(expected under H0): 8580.0
-    # activity_obj.calc_mann_whitney('BRCA pathway reduction(Rotem)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_schizophrenia_gse17612.csv')
-    # Stat: 2814.0, P-value: 0.0008647738664741184, n1: 156, n2: 51, m_u(expected under H0): 3978.0
-
-    # activity_obj.calc_mann_whitney('brca1 dependent ub ligase activity(BioCarta)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
-    # Stat: 8481.0, P-value: 0.4366733613601155, n1: 156, n2: 110, m_u(expected under H0): 8580.0
-    # activity_obj.calc_mann_whitney('brca1 dependent ub ligase activity(BioCarta)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_schizophrenia_gse17612.csv')
-    # Stat: 2977.0, P-value: 0.0035279674829234334, n1: 156, n2: 51, m_u(expected under H0): 3978.0
-
-    # activity_obj.calc_mann_whitney('role of brca1 brca2 and atr in cancer susceptibility(BioCarta)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_muscle_gse28422.csv')
-    # Stat: 7729.0, P-value: 0.08434596977542624, n1: 156, n2: 110, m_u(expected under H0): 8580.0
-    # activity_obj.calc_mann_whitney('role of brca1 brca2 and atr in cancer susceptibility(BioCarta)', '/data/output_activity_brca_gse50948.csv', '/data/output_activity_schizophrenia_gse17612.csv')
-    # Stat: 2109.0, P-value: 2.4322278154806653e-07, n1: 156, n2: 51, m_u(expected under H0): 3978.0
-
-    # One way ANOVA.
-    #df = pd.read_csv('data/output_activity.csv', index_col=0)
-    #df = df.loc[df.max(axis=1) > 0]
-    #df['F'] = -1
-    #df['P'] = -1
-    #df['LL'] = -1
-    #df['LP'] = -1
-    #for ind, line in df.iterrows():
-    #    line.index = line.index.map(lambda x: x.strip('count'))
-    #    p1 = [f'S{i}' for i in range(1, 97, 3)]
-    #    p2 = [f'S{i}' for i in range(2, 97, 3)]
-    #    p3 = [f'S{i}' for i in range(3, 97, 3)]
-    #    line1 = line[p1]
-    #    line2 = line[p2]
-    #    line3 = line[p3]
-    #    F, P = f_oneway(line1, line2, line3)
-    #    L = levene(line1, line2, line3)
-    #    df.loc[ind, 'F'] = F
-    #    df.loc[ind, 'P'] = P
-    #    df.loc[ind, 'LL'] = L[0]
-    #    df.loc[ind, 'LP'] = L[1]
-    #
-    #df.to_csv('data/output_tests.csv')

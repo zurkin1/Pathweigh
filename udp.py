@@ -233,45 +233,9 @@ def calc_udp_multi_process(is_rnaseq):
     return df
 
 
-#Calculate activity and consistency of a path.
-def process_sample(kegg, path_id, sample):
-    mapping = kegg['mapping']
-    path_inter_ids = kegg['pathList'][path_id]
-    total_activity = 0
-    total_inter = 0
-    for inter_id in path_inter_ids:
-        interaction = kegg['interactionList'].loc[kegg['interactionList']['interaction.id'] == inter_id]
-        inputm = interaction.iloc[0]['input']
-        outputm = interaction.iloc[0]['output']
-        node_in = mapping.loc[mapping['node.id'] == inputm]
-        node_out = mapping.loc[mapping['node.id'] == outputm]
-        try:
-            activity_in = sample.loc[[str.lower(x) for x in node_in['symbol'].values]].prod()
-            activity_out = sample.loc[[str.lower(x) for x in node_out['symbol'].values]].prod()
-            total_inter += 1
-            total_activity += activity_in
-        except:
-            pass
-    print(total_activity/total_inter)
-    
-    nn = kegg['node.name']
-    nt = kegg['node.type'] #Complex, compound, protein.
-    #ind = nn.index('RPS6KB2')
-    #nt[ind]
-
-
 if __name__ == '__main__':
     #Calculate UDP.
     #for func in [calc_udp_poisson, calc_udp_nbm, calc_udp_gmm, calc_udp_norm, calc_udp_gennorm]:
     #    udp, aic = func(sample_data, aic_test=True)
     #    print(f'Function: {func.__name__}, aic: {aic}')
     calc_udp_multi_process(True)
-
-    #Calculate activity.
-    #udp = pd.read_csv('./data/output_udp.csv', index_col = 0)
-    #with open('./data/pid', 'rb') as f:
-    #    paths = pickle.load(f)
-    #kegg = paths['PID.db']['KEGG']
-    #path_id = 'hsa05221'
-    #sample = udp['17-002']
-    #process_sample(kegg, path_id, sample)

@@ -91,7 +91,7 @@ class path_activity:
         # probelinks['gene'] = probelinks.probe.apply(lambda x: probe_to_gene_dict.get(x, None))
 
         probe_to_pr = pd.merge(self.probe_to_pr, udp_sample, how='left')
-        #self.link_probe_gene = probe_to_pr.dropna().groupby('link').max()
+        self.link_probe_gene = probe_to_pr.dropna().groupby('link').max() #
         probe_to_pr = probe_to_pr.groupby(['link'], sort=False)['pr'].max()
         self.link_to_pr_dict[sample] = probe_to_pr.to_dict()
 

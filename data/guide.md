@@ -12,8 +12,8 @@
 		<li> column 3: molecule type (i.e complex, protein, compound).
 		<li> column 4: molecule names.
 		<li> column 5: a unique complex or molecule number.
-		<li> column 6: a comma-separated list of molecules names that are involved in this interaction. That is a bit different than the default KGML format. For example if we get:
-
+		<li> column 6: a comma-separated list of molecules names that are involved in this interaction. That is a bit different than the default KGML format.
+					For example if we get:
 			KRAS	activation	ARAF
 			KRAS	activation	BRAF
 			KRAS	activation	PIK3CA

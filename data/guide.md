@@ -1,4 +1,4 @@
-#Guide For Adding A New KEGG Pathway.
+# Guide For Adding A New KEGG Pathway.
 <ol>
 <li> Log in to KEGG, select the pathway and download as in KGML format.
 <li> Clone this Github repository: https://github.com/arnaudporet/kgml2sif. This is a KGML to simple interaction format tool.
@@ -14,16 +14,17 @@
 		<li> column 5: a unique complex or molecule number.
 		<li> column 6: a comma-separated list of molecules names that are involved in this interaction. That is a bit different than the default KGML format. For example if we get:
 		
-		KRAS	activation	ARAF
-		KRAS	activation	BRAF
-		KRAS	activation	PIK3CA
-		KRAS	activation	PIK3CB
-		KRAS	activation	PIK3CD
-		KRAS	activation	PIK3R1
-		KRAS	activation	PIK3R2
+			KRAS	activation	ARAF
+			KRAS	activation	BRAF
+			KRAS	activation	PIK3CA
+			KRAS	activation	PIK3CB
+			KRAS	activation	PIK3CD
+			KRAS	activation	PIK3R1
+			KRAS	activation	PIK3R2
+			
+			We need to group the molecules to one list like the following:
+			- path_name \t path_ID \t mol_type \t KRAS \t KRAS \t mol_num \t ARAF, BRAF, PIK3CA, PIK3CB, PIK3CD, PIK3R1, PIK3R2
 		
-		We need to group the molecules to one list like the following:
-		- path_name \t path_ID \t mol_type \t KRAS \t KRAS \t mol_num \t ARAF, BRAF, PIK3CA, PIK3CB, PIK3CD, PIK3R1, PIK3R2
 		<li> column 7: optional: you can add 'active' in case of an active molecule. This will add a '+' sign in the KGML export parser to signal an active molecule.
 		<li> column 8: add the source database, in this case, 'KEGG'.
 		<li> column 9: ignored.

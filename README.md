@@ -4,4 +4,6 @@
 In order to run PathWeigh please refer to the notebook folder where twe notebooks are availabe. One demonstrating bulk RNAseq data, and the other single-cell RNAseq data.
 
 
-## [List of supported pathways.](data/pathnames.txt)
+### [List of supported pathways.](data/pathnames.txt)
+
+### [Guide for adding a new pathway.](data/guide.md)

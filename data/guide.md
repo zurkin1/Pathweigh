@@ -24,7 +24,9 @@
 				
 				We need to group the molecules to one list like the following:
 				- path_name \t path_ID \t mol_type \t KRAS \t KRAS \t mol_num \t ARAF, BRAF, PIK3CA, PIK3CB, PIK3CD, PIK3R1, PIK3R2
-		
+
+
+
 		<li> column 7: optional: you can add 'active' in case of an active molecule. This will add a '+' sign in the KGML export parser to signal an active molecule.
 		<li> column 8: add the source database, in this case, 'KEGG'.
 		<li> column 9: ignored.

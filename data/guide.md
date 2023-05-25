@@ -20,7 +20,7 @@
 				<li>	KRAS	activation	PIK3CB
 				<li>	KRAS	activation	PIK3CD
 				<li>	KRAS	activation	PIK3R1
-				<li>	KRAS	activation	PIK3R2	 We need to group the molecules to one list like the following. So two lines describe an interaction.
+				<li>	KRAS	activation	PIK3R2	 We need to group the molecules to one list like the following. So two lines describe an interaction. One for the inputs and one for the outputs.
 				<li>    path_name \t path_ID \t mol_type \t KRAS \t mol_num \t 	 
 				<li>    path_name \t path_ID \t mol_type \t ARAF \t mol_num \t BRAF, PIK3CA, PIK3CB, PIK3CD, PIK3R1, PIK3R2
 			</ol>

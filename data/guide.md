@@ -23,7 +23,7 @@
 				<li>	KRAS	activation	PIK3R2	 We need to group the molecules to one list like the following.
 				<li>    path_name \t path_ID \t mol_type \t KRAS \t mol_num \t 	 
 				<li>    path_name \t path_ID \t mol_type \t ARAF \t mol_num \t BRAF, PIK3CA, PIK3CB, PIK3CD, PIK3R1, PIK3R2
-				<li>	PathWeigh will take the maximume value of this group in calculation. We can have Few suahc groups for an interaction and PathWeigh will take their multiplication.
+				<li>	PathWeigh will take the maximume value of this group in calculation. We can have few such groups for an interaction and PathWeigh will take their product.
 			</ol>
 		<li> column 7: optional: you can add 'active' in case of an active molecule. This will add a '+' sign in the KGML export parser to signal an active molecule.
 		<li> column 8: add the source database, in this case, 'KEGG'.

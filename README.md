@@ -7,3 +7,5 @@ In order to run PathWeigh please refer to the notebook folder where twe notebook
 ### [List of supported pathways.](data/pathnames.txt)
 
 ### [Guide for adding a new pathway.](data/guide.md)
+
+Support: zurkin at gmail dot com.

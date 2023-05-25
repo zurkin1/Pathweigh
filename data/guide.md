@@ -34,5 +34,5 @@
 <li> After the table is prepared it needs to be renamed to pathologist.db.txt file in the data folder. Don't concatenate to the old database file, use them separately.
 <li> An example of a file in this format is available in
 
-###[pathologist.db.txt](keggpathologist.db.txt)
+[pathologist.db.txt](keggpathologist.db.txt)
 </ol>

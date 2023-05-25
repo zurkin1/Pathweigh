@@ -187,13 +187,13 @@ class path_activity:
             cmplx_to_pr_dict = self.calc_cmplx_to_pr(sample)
             paths = self.orig_paths.copy()
             # gc.collect()
-            if self.kegg:
-                paths.loc[paths.molType == 'protein', 'pr'] = paths.molLink.apply(lambda x: np.prod([self.link_to_udp(
-                   i, sample) for i in str(x).split(',')]))
-            else:
+            #if self.kegg:
+            #    paths.loc[paths.molType == 'protein', 'pr'] = paths.molLink.apply(lambda x: np.prod([self.link_to_udp(
+            #       i, sample) for i in str(x).split(',')]))
+            #else:
             # If a molecule does not have a probability we need to remove the whole interaction from activity and consistency calculations.
-                paths.loc[paths.molType == 'protein', 'pr'] = paths.molLink.apply(lambda x: max([self.link_to_udp(
-                   i, sample) for i in str(x).split(',')]))  # Max returns NaN if there is at least one NaN in the list.
+            paths.loc[paths.molType == 'protein', 'pr'] = paths.molLink.apply(lambda x: max([self.link_to_udp(
+                i, sample) for i in str(x).split(',')]))  # Max returns NaN if there is at least one NaN in the list.
             # Compounds are assumed to always be present
             paths.loc[paths.molType == 'compound', 'pr'] = 1
             paths.loc[paths.molType == 'rna', 'pr'] = 1

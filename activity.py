@@ -37,6 +37,9 @@ class path_activity:
         print(time.ctime(), 'Init activity object')
         self.orig_paths = pd.read_csv(relative_path + 'pathologist.db.txt', delimiter='\t', header=None)
         self.orig_paths.columns = ['path_name', 'path_id', 'molType', 'molName', 'molNum', 'molLink', 'c7', 'c8', 'c9', 'molRole', 'intID', 'intType']
+        self.kegg = False
+        if self.orig_paths.iloc[0]['c8'] == 'KEGG':
+            self.kegg = True
         self.orig_paths.drop(['c8', 'c9'], inplace=True, axis=1)
         self.orig_paths = self.orig_paths.sort_values(['path_id', 'intID'])
         up2ll = pd.read_csv(relative_path + 'UP2LL.txt', delimiter='\t', header=None, index_col=0)
@@ -71,7 +74,7 @@ class path_activity:
         self.probelinks['link'] = self.probelinks.link.replace('---', 0)
         self.probelinks['link'] = pd.to_numeric(self.probelinks.link)
         # Use only probes or genes that appear in paths.
-        self.filter_probes()
+        #self.filter_probes()
         self.probe_to_pr = pd.merge(
             self.probelinks, self.probe_to_gene_df, on='probe', how='left')
         self.link_to_pr_dict = {}
@@ -89,11 +92,15 @@ class path_activity:
         udp_sample.columns = ['gene', 'pr']
         # udp_sample['gene'] = udp_sample.gene.apply(lambda x: x.split('|')[0]) #Remove Entre gene IDs.
         # probelinks['gene'] = probelinks.probe.apply(lambda x: probe_to_gene_dict.get(x, None))
-
         probe_to_pr = pd.merge(self.probe_to_pr, udp_sample, how='left')
         self.link_probe_gene = probe_to_pr.dropna().groupby('link').max() #
         probe_to_pr = probe_to_pr.groupby(['link'], sort=False)['pr'].max()
         self.link_to_pr_dict[sample] = probe_to_pr.to_dict()
+
+    def calc_kegg_link_to_pr(self, sample):
+        udp_sample = self.udp.loc[:, sample].copy().reset_index()
+        udp_sample.columns = ['gene', 'pr']
+        self.link_to_pr_dict[sample] = udp_sample.set_index('gene').pr.to_dict()
 
     # Replace link with UDP.
     def link_to_udp(self, link, sample):
@@ -101,7 +108,7 @@ class path_activity:
             return (self.link_to_pr_dict[sample].get(int(link.replace('LL:', '')), np.NaN))
         if ('UP' in link):
             return (self.link_to_pr_dict[sample].get(int(self.up2ll_dict.get(link.replace('UP:', ''), 0)), np.NaN))
-        return np.NaN
+        return self.link_to_pr_dict[sample].get(str.lower(link), np.NaN)
 
     # Remove link prefix.
     def rem_link_prefix(self, link):
@@ -170,16 +177,23 @@ class path_activity:
         sample_results = np.empty((0, 6))
         for sample in udp_chunk:
             # Calculate UDP of the molecules in all the paths.
-            if(not self.is_rnaseq):
-                self.calc_link_to_pr(sample)
+            if self.kegg:
+               self.calc_kegg_link_to_pr(sample)
             else:
-                self.calc_link_to_gene_to_pr(sample)
+                if(not self.is_rnaseq):
+                    self.calc_link_to_pr(sample)
+                else:
+                    self.calc_link_to_gene_to_pr(sample)
             cmplx_to_pr_dict = self.calc_cmplx_to_pr(sample)
             paths = self.orig_paths.copy()
             # gc.collect()
+            if self.kegg:
+                paths.loc[paths.molType == 'protein', 'pr'] = paths.molLink.apply(lambda x: np.prod([self.link_to_udp(
+                   i, sample) for i in str(x).split(',')]))
+            else:
             # If a molecule does not have a probability we need to remove the whole interaction from activity and consistency calculations.
-            paths.loc[paths.molType == 'protein', 'pr'] = paths.molLink.apply(lambda x: max([self.link_to_udp(
-                i, sample) for i in str(x).split(',')]))  # Max returns NaN if there is at least one NaN in the list.
+                paths.loc[paths.molType == 'protein', 'pr'] = paths.molLink.apply(lambda x: max([self.link_to_udp(
+                   i, sample) for i in str(x).split(',')]))  # Max returns NaN if there is at least one NaN in the list.
             # Compounds are assumed to always be present
             paths.loc[paths.molType == 'compound', 'pr'] = 1
             paths.loc[paths.molType == 'rna', 'pr'] = 1

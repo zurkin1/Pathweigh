@@ -18,7 +18,7 @@ import sys
 import pickle
 
 
-infinitesimal = np.finfo(np.float).eps
+infinitesimal = np.finfo(float).eps
 relative_path = './data/'
 
 

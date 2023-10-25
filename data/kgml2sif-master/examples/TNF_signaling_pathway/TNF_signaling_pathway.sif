@@ -1,0 +1,142 @@
+BIRC2	activation,ubiquitination	RIPK1
+BIRC3	activation,ubiquitination	RIPK1
+CASP10	activation	CASP3
+CASP10	activation	CASP7
+CASP8	activation	CASP3
+CASP8	activation	CASP7
+CFLAR	inhibition	CASP8
+CHUK	phosphorylation	NFKBIA
+DAB2IP	indirect effect	MAPK10
+DAB2IP	indirect effect	MAPK8
+DAB2IP	indirect effect	MAPK9
+FADD	activation	CASP10
+FADD	activation	CASP8
+IKBKB	phosphorylation	NFKBIA
+IKBKG	phosphorylation	NFKBIA
+IRF1	expression	IFNB1
+ITCH	inhibition	CFLAR
+LTA	activation	TNFRSF1B
+MAP2K1	phosphorylation	MAPK1
+MAP2K1	phosphorylation	MAPK3
+MAP2K3	phosphorylation	MAPK11
+MAP2K3	phosphorylation	MAPK12
+MAP2K3	phosphorylation	MAPK13
+MAP2K3	phosphorylation	MAPK14
+MAP2K4	phosphorylation	MAPK10
+MAP2K4	phosphorylation	MAPK8
+MAP2K4	phosphorylation	MAPK9
+MAP2K6	phosphorylation	MAPK11
+MAP2K6	phosphorylation	MAPK12
+MAP2K6	phosphorylation	MAPK13
+MAP2K6	phosphorylation	MAPK14
+MAP2K7	phosphorylation	MAPK10
+MAP2K7	phosphorylation	MAPK8
+MAP2K7	phosphorylation	MAPK9
+MAP3K14	phosphorylation	CHUK
+MAP3K14	phosphorylation	IKBKB
+MAP3K14	phosphorylation	IKBKG
+MAP3K5	activation	MAP2K4
+MAP3K5	activation	MAP2K7
+MAP3K7	phosphorylation	IKBKB
+MAP3K7	phosphorylation	MAP2K3
+MAP3K7	phosphorylation	MAP2K4
+MAP3K7	phosphorylation	MAP2K6
+MAP3K7	phosphorylation	MAP2K7
+MAP3K8	activation	MAP2K4
+MAP3K8	activation	MAP2K7
+MAP3K8	phosphorylation	MAP2K1
+MAPK1	indirect effect	RPS6KA4
+MAPK1	indirect effect	RPS6KA5
+MAPK10	indirect effect	FOS
+MAPK10	indirect effect,phosphorylation	JUN
+MAPK10	phosphorylation	ITCH
+MAPK11	activation	CEBPB
+MAPK11	indirect effect	RPS6KA4
+MAPK11	indirect effect	RPS6KA5
+MAPK12	activation	CEBPB
+MAPK12	indirect effect	RPS6KA4
+MAPK12	indirect effect	RPS6KA5
+MAPK13	activation	CEBPB
+MAPK13	indirect effect	RPS6KA4
+MAPK13	indirect effect	RPS6KA5
+MAPK14	activation	CEBPB
+MAPK14	indirect effect	RPS6KA4
+MAPK14	indirect effect	RPS6KA5
+MAPK3	indirect effect	RPS6KA4
+MAPK3	indirect effect	RPS6KA5
+MAPK8	indirect effect	FOS
+MAPK8	indirect effect,phosphorylation	JUN
+MAPK8	phosphorylation	ITCH
+MAPK9	indirect effect	FOS
+MAPK9	indirect effect,phosphorylation	JUN
+MAPK9	phosphorylation	ITCH
+MLKL	activation	PGAM5
+NFKB1	expression	CFLAR
+NFKBIA	dissociation	NFKB1
+NFKBIA	dissociation	RELA
+PGAM5	activation,dephosphorylation	DNM1L
+PIK3CA	indirect effect,phosphorylation	AKT1
+PIK3CA	indirect effect,phosphorylation	AKT2
+PIK3CA	indirect effect,phosphorylation	AKT3
+PIK3CB	indirect effect,phosphorylation	AKT1
+PIK3CB	indirect effect,phosphorylation	AKT2
+PIK3CB	indirect effect,phosphorylation	AKT3
+PIK3CD	indirect effect,phosphorylation	AKT1
+PIK3CD	indirect effect,phosphorylation	AKT2
+PIK3CD	indirect effect,phosphorylation	AKT3
+PIK3R1	indirect effect,phosphorylation	AKT1
+PIK3R1	indirect effect,phosphorylation	AKT2
+PIK3R1	indirect effect,phosphorylation	AKT3
+PIK3R2	indirect effect,phosphorylation	AKT1
+PIK3R2	indirect effect,phosphorylation	AKT2
+PIK3R2	indirect effect,phosphorylation	AKT3
+PIK3R3	indirect effect,phosphorylation	AKT1
+PIK3R3	indirect effect,phosphorylation	AKT2
+PIK3R3	indirect effect,phosphorylation	AKT3
+RELA	expression	CFLAR
+RIPK1	activation	IKBKG
+RIPK1	activation	MAP2K3
+RIPK1	binding/association	RIPK3
+RIPK3	phosphorylation	MLKL
+RPS6KA4	activation	ATF2
+RPS6KA4	activation	ATF4
+RPS6KA4	activation	ATF6B
+RPS6KA4	activation	CREB1
+RPS6KA4	activation	CREB3
+RPS6KA4	activation	CREB3L1
+RPS6KA4	activation	CREB3L2
+RPS6KA4	activation	CREB3L3
+RPS6KA4	activation	CREB3L4
+RPS6KA4	activation	CREB5
+RPS6KA5	activation	ATF2
+RPS6KA5	activation	ATF4
+RPS6KA5	activation	ATF6B
+RPS6KA5	activation	CREB1
+RPS6KA5	activation	CREB3
+RPS6KA5	activation	CREB3L1
+RPS6KA5	activation	CREB3L2
+RPS6KA5	activation	CREB3L3
+RPS6KA5	activation	CREB3L4
+RPS6KA5	activation	CREB5
+TNF	activation	TNFRSF1A
+TNF	activation	TNFRSF1B
+TNFRSF1A	activation	TRADD
+TNFRSF1A	dissociation	BAG4
+TNFRSF1B	activation	DAB2IP
+TNFRSF1B	activation	TRAF2
+TNFRSF1B	activation,indirect effect	IRF1
+TRADD	activation	FADD
+TRAF2	activation	BIRC2
+TRAF2	activation	BIRC3
+TRAF2	activation	MAP3K14
+TRAF2	activation	MAP3K7
+TRAF2	activation	PIK3CA
+TRAF2	activation	PIK3CB
+TRAF2	activation	PIK3CD
+TRAF2	activation	PIK3R1
+TRAF2	activation	PIK3R2
+TRAF2	activation	PIK3R3
+TRAF5	activation	BIRC2
+TRAF5	activation	BIRC3
+TRAF5	activation	MAP3K14
+TRAF5	activation	MAP3K7

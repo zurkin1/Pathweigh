@@ -1,0 +1,429 @@
+AKT1	activation,phosphorylation	MTOR
+AKT1	activation,phosphorylation	PDE3B
+AKT1	indirect effect	PPP1CA
+AKT1	indirect effect	PPP1CB
+AKT1	indirect effect	PPP1CC
+AKT1	indirect effect	PPP1R3A
+AKT1	indirect effect	PPP1R3B
+AKT1	indirect effect	PPP1R3C
+AKT1	indirect effect	PPP1R3D
+AKT1	indirect effect	PPP1R3E
+AKT1	indirect effect	PPP1R3F
+AKT1	indirect effect	SLC2A4
+AKT1	inhibition,phosphorylation	BAD
+AKT1	inhibition,phosphorylation	FOXO1
+AKT1	inhibition,phosphorylation	GSK3B
+AKT1	inhibition,phosphorylation	TSC2
+AKT2	activation,phosphorylation	MTOR
+AKT2	activation,phosphorylation	PDE3B
+AKT2	indirect effect	PPP1CA
+AKT2	indirect effect	PPP1CB
+AKT2	indirect effect	PPP1CC
+AKT2	indirect effect	PPP1R3A
+AKT2	indirect effect	PPP1R3B
+AKT2	indirect effect	PPP1R3C
+AKT2	indirect effect	PPP1R3D
+AKT2	indirect effect	PPP1R3E
+AKT2	indirect effect	PPP1R3F
+AKT2	indirect effect	SLC2A4
+AKT2	inhibition,phosphorylation	BAD
+AKT2	inhibition,phosphorylation	FOXO1
+AKT2	inhibition,phosphorylation	GSK3B
+AKT2	inhibition,phosphorylation	TSC2
+AKT3	activation,phosphorylation	MTOR
+AKT3	activation,phosphorylation	PDE3B
+AKT3	indirect effect	PPP1CA
+AKT3	indirect effect	PPP1CB
+AKT3	indirect effect	PPP1CC
+AKT3	indirect effect	PPP1R3A
+AKT3	indirect effect	PPP1R3B
+AKT3	indirect effect	PPP1R3C
+AKT3	indirect effect	PPP1R3D
+AKT3	indirect effect	PPP1R3E
+AKT3	indirect effect	PPP1R3F
+AKT3	indirect effect	SLC2A4
+AKT3	inhibition,phosphorylation	BAD
+AKT3	inhibition,phosphorylation	FOXO1
+AKT3	inhibition,phosphorylation	GSK3B
+AKT3	inhibition,phosphorylation	TSC2
+ARAF	activation,phosphorylation	MAP2K1
+ARAF	activation,phosphorylation	MAP2K2
+BRAF	activation,phosphorylation	MAP2K1
+BRAF	activation,phosphorylation	MAP2K2
+CALM1	activation,phosphorylation	PYGB
+CALM1	activation,phosphorylation	PYGL
+CALM1	activation,phosphorylation	PYGM
+CALM2	activation,phosphorylation	PYGB
+CALM2	activation,phosphorylation	PYGL
+CALM2	activation,phosphorylation	PYGM
+CALM3	activation,phosphorylation	PYGB
+CALM3	activation,phosphorylation	PYGL
+CALM3	activation,phosphorylation	PYGM
+CALML3	activation,phosphorylation	PYGB
+CALML3	activation,phosphorylation	PYGL
+CALML3	activation,phosphorylation	PYGM
+CALML4	activation,phosphorylation	PYGB
+CALML4	activation,phosphorylation	PYGL
+CALML4	activation,phosphorylation	PYGM
+CALML5	activation,phosphorylation	PYGB
+CALML5	activation,phosphorylation	PYGL
+CALML5	activation,phosphorylation	PYGM
+CALML6	activation,phosphorylation	PYGB
+CALML6	activation,phosphorylation	PYGL
+CALML6	activation,phosphorylation	PYGM
+CRK	activation	RHOQ
+CRKL	activation	RHOQ
+EIF4EBP1	inhibition	EIF4E
+EIF4EBP1	inhibition	EIF4E1B
+EIF4EBP1	inhibition	EIF4E2
+EXOC7	binding/association	RHOQ
+EXOC7	indirect effect	SLC2A4
+FOXO1	dissociation	PPARGC1A
+FOXO1	expression	FBP1
+FOXO1	expression	FBP2
+FOXO1	expression	G6PC
+FOXO1	expression	G6PC2
+FOXO1	expression	G6PC3
+FOXO1	expression	PCK1
+FOXO1	expression	PCK2
+GRB2	activation	SOS1
+GRB2	activation	SOS2
+GSK3B	inhibition,phosphorylation	GYS1
+GSK3B	inhibition,phosphorylation	GYS2
+GYS1	activation	cpd:C00369
+GYS2	activation	cpd:C00369
+HRAS	activation	ARAF
+HRAS	activation	BRAF
+HRAS	activation	RAF1
+IKBKB	inhibition,phosphorylation	IRS1
+IKBKB	inhibition,phosphorylation	IRS2
+IKBKB	inhibition,phosphorylation	IRS4
+INPP5A	inhibition	cpd:C05981
+INPPL1	inhibition	cpd:C05981
+INS	activation	INSR
+INSR	activation,phosphorylation	CBL
+INSR	activation,phosphorylation	CBLB
+INSR	activation,phosphorylation	IRS1
+INSR	activation,phosphorylation	IRS2
+INSR	activation,phosphorylation	IRS4
+INSR	activation,phosphorylation	SH2B2
+INSR	activation,phosphorylation	SHC1
+INSR	activation,phosphorylation	SHC2
+INSR	activation,phosphorylation	SHC3
+INSR	activation,phosphorylation	SHC4
+IRS1	activation	GRB2
+IRS1	activation	PIK3CA
+IRS1	activation	PIK3CB
+IRS1	activation	PIK3CD
+IRS1	activation	PIK3R1
+IRS1	activation	PIK3R2
+IRS1	activation	PIK3R3
+IRS2	activation	GRB2
+IRS2	activation	PIK3CA
+IRS2	activation	PIK3CB
+IRS2	activation	PIK3CD
+IRS2	activation	PIK3R1
+IRS2	activation	PIK3R2
+IRS2	activation	PIK3R3
+IRS4	activation	GRB2
+IRS4	activation	PIK3CA
+IRS4	activation	PIK3CB
+IRS4	activation	PIK3CD
+IRS4	activation	PIK3R1
+IRS4	activation	PIK3R2
+IRS4	activation	PIK3R3
+KRAS	activation	ARAF
+KRAS	activation	BRAF
+KRAS	activation	RAF1
+MAP2K1	activation,phosphorylation	MAPK1
+MAP2K1	activation,phosphorylation	MAPK3
+MAP2K2	activation,phosphorylation	MAPK1
+MAP2K2	activation,phosphorylation	MAPK3
+MAPK1	activation,phosphorylation	ELK1
+MAPK1	activation,phosphorylation	MKNK1
+MAPK1	activation,phosphorylation	MKNK2
+MAPK10	inhibition,phosphorylation	IRS1
+MAPK10	inhibition,phosphorylation	IRS2
+MAPK10	inhibition,phosphorylation	IRS4
+MAPK3	activation,phosphorylation	ELK1
+MAPK3	activation,phosphorylation	MKNK1
+MAPK3	activation,phosphorylation	MKNK2
+MAPK8	inhibition,phosphorylation	IRS1
+MAPK8	inhibition,phosphorylation	IRS2
+MAPK8	inhibition,phosphorylation	IRS4
+MAPK9	inhibition,phosphorylation	IRS1
+MAPK9	inhibition,phosphorylation	IRS2
+MAPK9	inhibition,phosphorylation	IRS4
+MKNK1	activation,phosphorylation	EIF4E
+MKNK1	activation,phosphorylation	EIF4E1B
+MKNK1	activation,phosphorylation	EIF4E2
+MKNK2	activation,phosphorylation	EIF4E
+MKNK2	activation,phosphorylation	EIF4E1B
+MKNK2	activation,phosphorylation	EIF4E2
+MTOR	activation,phosphorylation	RPS6KB1
+MTOR	activation,phosphorylation	RPS6KB2
+MTOR	inhibition,phosphorylation	EIF4EBP1
+NRAS	activation	ARAF
+NRAS	activation	BRAF
+NRAS	activation	RAF1
+PDE3B	inhibition	cpd:C00575
+PDPK1	activation,phosphorylation	AKT1
+PDPK1	activation,phosphorylation	AKT2
+PDPK1	activation,phosphorylation	AKT3
+PDPK1	activation,phosphorylation	PRKCI
+PDPK1	activation,phosphorylation	PRKCZ
+PDPK1	activation,phosphorylation	RPS6KB1
+PDPK1	activation,phosphorylation	RPS6KB2
+PHKA1	activation,phosphorylation	PYGB
+PHKA1	activation,phosphorylation	PYGL
+PHKA1	activation,phosphorylation	PYGM
+PHKA2	activation,phosphorylation	PYGB
+PHKA2	activation,phosphorylation	PYGL
+PHKA2	activation,phosphorylation	PYGM
+PHKB	activation,phosphorylation	PYGB
+PHKB	activation,phosphorylation	PYGL
+PHKB	activation,phosphorylation	PYGM
+PHKG1	activation,phosphorylation	PYGB
+PHKG1	activation,phosphorylation	PYGL
+PHKG1	activation,phosphorylation	PYGM
+PHKG2	activation,phosphorylation	PYGB
+PHKG2	activation,phosphorylation	PYGL
+PHKG2	activation,phosphorylation	PYGM
+PIK3CA	activation,compound	MTOR
+PIK3CA	activation,compound	PDPK1
+PIK3CA	activation,compound	PRKCI
+PIK3CA	activation,compound	PRKCZ
+PIK3CB	activation,compound	MTOR
+PIK3CB	activation,compound	PDPK1
+PIK3CB	activation,compound	PRKCI
+PIK3CB	activation,compound	PRKCZ
+PIK3CD	activation,compound	MTOR
+PIK3CD	activation,compound	PDPK1
+PIK3CD	activation,compound	PRKCI
+PIK3CD	activation,compound	PRKCZ
+PIK3R1	activation,compound	MTOR
+PIK3R1	activation,compound	PDPK1
+PIK3R1	activation,compound	PRKCI
+PIK3R1	activation,compound	PRKCZ
+PIK3R2	activation,compound	MTOR
+PIK3R2	activation,compound	PDPK1
+PIK3R2	activation,compound	PRKCI
+PIK3R2	activation,compound	PRKCZ
+PIK3R3	activation,compound	MTOR
+PIK3R3	activation,compound	PDPK1
+PIK3R3	activation,compound	PRKCI
+PIK3R3	activation,compound	PRKCZ
+PPP1CA	activation,dephosphorylation	GYS1
+PPP1CA	activation,dephosphorylation	GYS2
+PPP1CA	dephosphorylation,inhibition	CALM1
+PPP1CA	dephosphorylation,inhibition	CALM2
+PPP1CA	dephosphorylation,inhibition	CALM3
+PPP1CA	dephosphorylation,inhibition	CALML3
+PPP1CA	dephosphorylation,inhibition	CALML4
+PPP1CA	dephosphorylation,inhibition	CALML5
+PPP1CA	dephosphorylation,inhibition	CALML6
+PPP1CA	dephosphorylation,inhibition	PHKA1
+PPP1CA	dephosphorylation,inhibition	PHKA2
+PPP1CA	dephosphorylation,inhibition	PHKB
+PPP1CA	dephosphorylation,inhibition	PHKG1
+PPP1CA	dephosphorylation,inhibition	PHKG2
+PPP1CB	activation,dephosphorylation	GYS1
+PPP1CB	activation,dephosphorylation	GYS2
+PPP1CB	dephosphorylation,inhibition	CALM1
+PPP1CB	dephosphorylation,inhibition	CALM2
+PPP1CB	dephosphorylation,inhibition	CALM3
+PPP1CB	dephosphorylation,inhibition	CALML3
+PPP1CB	dephosphorylation,inhibition	CALML4
+PPP1CB	dephosphorylation,inhibition	CALML5
+PPP1CB	dephosphorylation,inhibition	CALML6
+PPP1CB	dephosphorylation,inhibition	PHKA1
+PPP1CB	dephosphorylation,inhibition	PHKA2
+PPP1CB	dephosphorylation,inhibition	PHKB
+PPP1CB	dephosphorylation,inhibition	PHKG1
+PPP1CB	dephosphorylation,inhibition	PHKG2
+PPP1CC	activation,dephosphorylation	GYS1
+PPP1CC	activation,dephosphorylation	GYS2
+PPP1CC	dephosphorylation,inhibition	CALM1
+PPP1CC	dephosphorylation,inhibition	CALM2
+PPP1CC	dephosphorylation,inhibition	CALM3
+PPP1CC	dephosphorylation,inhibition	CALML3
+PPP1CC	dephosphorylation,inhibition	CALML4
+PPP1CC	dephosphorylation,inhibition	CALML5
+PPP1CC	dephosphorylation,inhibition	CALML6
+PPP1CC	dephosphorylation,inhibition	PHKA1
+PPP1CC	dephosphorylation,inhibition	PHKA2
+PPP1CC	dephosphorylation,inhibition	PHKB
+PPP1CC	dephosphorylation,inhibition	PHKG1
+PPP1CC	dephosphorylation,inhibition	PHKG2
+PPP1R3A	activation,dephosphorylation	GYS1
+PPP1R3A	activation,dephosphorylation	GYS2
+PPP1R3A	dephosphorylation,inhibition	CALM1
+PPP1R3A	dephosphorylation,inhibition	CALM2
+PPP1R3A	dephosphorylation,inhibition	CALM3
+PPP1R3A	dephosphorylation,inhibition	CALML3
+PPP1R3A	dephosphorylation,inhibition	CALML4
+PPP1R3A	dephosphorylation,inhibition	CALML5
+PPP1R3A	dephosphorylation,inhibition	CALML6
+PPP1R3A	dephosphorylation,inhibition	PHKA1
+PPP1R3A	dephosphorylation,inhibition	PHKA2
+PPP1R3A	dephosphorylation,inhibition	PHKB
+PPP1R3A	dephosphorylation,inhibition	PHKG1
+PPP1R3A	dephosphorylation,inhibition	PHKG2
+PPP1R3B	activation,dephosphorylation	GYS1
+PPP1R3B	activation,dephosphorylation	GYS2
+PPP1R3B	dephosphorylation,inhibition	CALM1
+PPP1R3B	dephosphorylation,inhibition	CALM2
+PPP1R3B	dephosphorylation,inhibition	CALM3
+PPP1R3B	dephosphorylation,inhibition	CALML3
+PPP1R3B	dephosphorylation,inhibition	CALML4
+PPP1R3B	dephosphorylation,inhibition	CALML5
+PPP1R3B	dephosphorylation,inhibition	CALML6
+PPP1R3B	dephosphorylation,inhibition	PHKA1
+PPP1R3B	dephosphorylation,inhibition	PHKA2
+PPP1R3B	dephosphorylation,inhibition	PHKB
+PPP1R3B	dephosphorylation,inhibition	PHKG1
+PPP1R3B	dephosphorylation,inhibition	PHKG2
+PPP1R3C	activation,dephosphorylation	GYS1
+PPP1R3C	activation,dephosphorylation	GYS2
+PPP1R3C	dephosphorylation,inhibition	CALM1
+PPP1R3C	dephosphorylation,inhibition	CALM2
+PPP1R3C	dephosphorylation,inhibition	CALM3
+PPP1R3C	dephosphorylation,inhibition	CALML3
+PPP1R3C	dephosphorylation,inhibition	CALML4
+PPP1R3C	dephosphorylation,inhibition	CALML5
+PPP1R3C	dephosphorylation,inhibition	CALML6
+PPP1R3C	dephosphorylation,inhibition	PHKA1
+PPP1R3C	dephosphorylation,inhibition	PHKA2
+PPP1R3C	dephosphorylation,inhibition	PHKB
+PPP1R3C	dephosphorylation,inhibition	PHKG1
+PPP1R3C	dephosphorylation,inhibition	PHKG2
+PPP1R3D	activation,dephosphorylation	GYS1
+PPP1R3D	activation,dephosphorylation	GYS2
+PPP1R3D	dephosphorylation,inhibition	CALM1
+PPP1R3D	dephosphorylation,inhibition	CALM2
+PPP1R3D	dephosphorylation,inhibition	CALM3
+PPP1R3D	dephosphorylation,inhibition	CALML3
+PPP1R3D	dephosphorylation,inhibition	CALML4
+PPP1R3D	dephosphorylation,inhibition	CALML5
+PPP1R3D	dephosphorylation,inhibition	CALML6
+PPP1R3D	dephosphorylation,inhibition	PHKA1
+PPP1R3D	dephosphorylation,inhibition	PHKA2
+PPP1R3D	dephosphorylation,inhibition	PHKB
+PPP1R3D	dephosphorylation,inhibition	PHKG1
+PPP1R3D	dephosphorylation,inhibition	PHKG2
+PPP1R3E	activation,dephosphorylation	GYS1
+PPP1R3E	activation,dephosphorylation	GYS2
+PPP1R3E	dephosphorylation,inhibition	CALM1
+PPP1R3E	dephosphorylation,inhibition	CALM2
+PPP1R3E	dephosphorylation,inhibition	CALM3
+PPP1R3E	dephosphorylation,inhibition	CALML3
+PPP1R3E	dephosphorylation,inhibition	CALML4
+PPP1R3E	dephosphorylation,inhibition	CALML5
+PPP1R3E	dephosphorylation,inhibition	CALML6
+PPP1R3E	dephosphorylation,inhibition	PHKA1
+PPP1R3E	dephosphorylation,inhibition	PHKA2
+PPP1R3E	dephosphorylation,inhibition	PHKB
+PPP1R3E	dephosphorylation,inhibition	PHKG1
+PPP1R3E	dephosphorylation,inhibition	PHKG2
+PPP1R3F	activation,dephosphorylation	GYS1
+PPP1R3F	activation,dephosphorylation	GYS2
+PPP1R3F	dephosphorylation,inhibition	CALM1
+PPP1R3F	dephosphorylation,inhibition	CALM2
+PPP1R3F	dephosphorylation,inhibition	CALM3
+PPP1R3F	dephosphorylation,inhibition	CALML3
+PPP1R3F	dephosphorylation,inhibition	CALML4
+PPP1R3F	dephosphorylation,inhibition	CALML5
+PPP1R3F	dephosphorylation,inhibition	CALML6
+PPP1R3F	dephosphorylation,inhibition	PHKA1
+PPP1R3F	dephosphorylation,inhibition	PHKA2
+PPP1R3F	dephosphorylation,inhibition	PHKB
+PPP1R3F	dephosphorylation,inhibition	PHKG1
+PPP1R3F	dephosphorylation,inhibition	PHKG2
+PRKAA1	inhibition,phosphorylation	ACACA
+PRKAA1	inhibition,phosphorylation	ACACB
+PRKAA2	inhibition,phosphorylation	ACACA
+PRKAA2	inhibition,phosphorylation	ACACB
+PRKAB1	inhibition,phosphorylation	ACACA
+PRKAB1	inhibition,phosphorylation	ACACB
+PRKAB2	inhibition,phosphorylation	ACACA
+PRKAB2	inhibition,phosphorylation	ACACB
+PRKACA	activation,phosphorylation	LIPE
+PRKACB	activation,phosphorylation	LIPE
+PRKACG	activation,phosphorylation	LIPE
+PRKAG1	inhibition,phosphorylation	ACACA
+PRKAG1	inhibition,phosphorylation	ACACB
+PRKAG2	inhibition,phosphorylation	ACACA
+PRKAG2	inhibition,phosphorylation	ACACB
+PRKAG3	inhibition,phosphorylation	ACACA
+PRKAG3	inhibition,phosphorylation	ACACB
+PRKAR1A	activation,phosphorylation	LIPE
+PRKAR1B	activation,phosphorylation	LIPE
+PRKAR2A	activation,phosphorylation	LIPE
+PRKAR2B	activation,phosphorylation	LIPE
+PRKCI	activation,indirect effect	SLC2A4
+PRKCI	indirect effect	SREBF1
+PRKCZ	activation,indirect effect	SLC2A4
+PRKCZ	indirect effect	SREBF1
+PTPN1	dephosphorylation,inhibition	INSR
+PTPN1	dephosphorylation,inhibition	IRS1
+PTPN1	dephosphorylation,inhibition	IRS2
+PTPN1	dephosphorylation,inhibition	IRS4
+PTPRF	dephosphorylation,inhibition	INSR
+PTPRF	dephosphorylation,inhibition	IRS1
+PTPRF	dephosphorylation,inhibition	IRS2
+PTPRF	dephosphorylation,inhibition	IRS4
+PTPRF	indirect effect	SHC1
+PTPRF	indirect effect	SHC2
+PTPRF	indirect effect	SHC3
+PTPRF	indirect effect	SHC4
+PYGB	inhibition	cpd:C00369
+PYGL	inhibition	cpd:C00369
+PYGM	inhibition	cpd:C00369
+RAF1	activation,phosphorylation	MAP2K1
+RAF1	activation,phosphorylation	MAP2K2
+RAPGEF1	activation	RHOQ
+RAPGEF1	binding/association	CBL
+RAPGEF1	binding/association	CBLB
+RHEB	activation	MTOR
+RPS6KB1	activation	RPS6
+RPS6KB2	activation	RPS6
+SH2B2	activation,inhibition	CBL
+SH2B2	activation,inhibition	CBLB
+SHC1	activation	GRB2
+SHC2	activation	GRB2
+SHC3	activation	GRB2
+SHC4	activation	GRB2
+SLC2A4	unknown	cpd:C00031
+SOCS1	dephosphorylation,inhibition	INSR
+SOCS2	dephosphorylation,inhibition	INSR
+SOCS3	dephosphorylation,inhibition	INSR
+SOCS4	dephosphorylation,inhibition	INSR
+SORBS1	binding/association	FLOT1
+SORBS1	binding/association	FLOT2
+SOS1	activation	HRAS
+SOS1	activation	KRAS
+SOS1	activation	NRAS
+SOS2	activation	HRAS
+SOS2	activation	KRAS
+SOS2	activation	NRAS
+SREBF1	activation,indirect effect	ACACA
+SREBF1	activation,indirect effect	ACACB
+SREBF1	activation,indirect effect	FASN
+SREBF1	activation,indirect effect	GCK
+SREBF1	activation,indirect effect	HK1
+SREBF1	activation,indirect effect	HK2
+SREBF1	activation,indirect effect	HK3
+SREBF1	activation,indirect effect	HKDC1
+SREBF1	activation,indirect effect	PKLR
+TRIP10	binding/association	RHOQ
+TRIP10	indirect effect	SLC2A4
+TSC1	membership	TSC1&TSC2
+TSC1&TSC2	inhibition	RHEB
+TSC2	membership	TSC1&TSC2
+cpd:C00575	activation	PRKACA
+cpd:C00575	activation	PRKACB
+cpd:C00575	activation	PRKACG
+cpd:C00575	activation	PRKAR1A
+cpd:C00575	activation	PRKAR1B
+cpd:C00575	activation	PRKAR2A
+cpd:C00575	activation	PRKAR2B

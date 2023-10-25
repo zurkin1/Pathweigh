@@ -1,0 +1,158 @@
+AKT1	activation	MTOR
+AKT1	phosphorylation	BAD
+AKT1	phosphorylation	CASP9
+AKT1	phosphorylation	GSK3B
+AKT2	activation	MTOR
+AKT2	phosphorylation	BAD
+AKT2	phosphorylation	CASP9
+AKT2	phosphorylation	GSK3B
+AKT3	activation	MTOR
+AKT3	phosphorylation	BAD
+AKT3	phosphorylation	CASP9
+AKT3	phosphorylation	GSK3B
+APPL1	membership	APPL1&CASP9
+APPL1&CASP9	missing interaction	CASP3
+ARAF	activation,phosphorylation	MAP2K1
+ARAF	activation,phosphorylation	MAP2K2
+AREG	activation	EGFR
+BAD	inhibition	BCL2
+BAX	inhibition	BCL2
+BBC3	inhibition	BCL2
+BCL2L11	inhibition	BCL2
+BRAF	activation,phosphorylation	MAP2K1
+BRAF	activation,phosphorylation	MAP2K2
+CASP3	activation	DCC
+CASP9	membership	APPL1&CASP9
+CTNNB1	activation	LEF1
+CTNNB1	activation	TCF7
+CTNNB1	activation	TCF7L1
+CTNNB1	activation	TCF7L2
+DCC	missing interaction	APPL1&CASP9
+EGF	activation	EGFR
+EGFR	activation	GRB2
+EGFR	activation,indirect effect	PIK3CA
+EGFR	activation,indirect effect	PIK3CB
+EGFR	activation,indirect effect	PIK3CD
+EGFR	activation,indirect effect	PIK3R1
+EGFR	activation,indirect effect	PIK3R2
+EGFR	activation,indirect effect	PIK3R3
+EREG	activation	EGFR
+FOS	expression	CCND1
+GRB2	activation	SOS1
+GRB2	activation	SOS2
+GSK3B	missing interaction	CTNNB1
+HRAS	activation	ARAF
+HRAS	activation	BRAF
+HRAS	activation	RAF1
+JUN	expression	CCND1
+KRAS	activation	ARAF
+KRAS	activation	BRAF
+KRAS	activation	PIK3CA
+KRAS	activation	PIK3CB
+KRAS	activation	PIK3CD
+KRAS	activation	PIK3R1
+KRAS	activation	PIK3R2
+KRAS	activation	PIK3R3
+KRAS	activation	RAF1
+KRAS	activation	RALGDS
+LEF1	expression	BIRC5
+LEF1	expression	CCND1
+LEF1	expression	MYC
+MAP2K1	activation,phosphorylation	MAPK1
+MAP2K1	activation,phosphorylation	MAPK3
+MAP2K2	activation,phosphorylation	MAPK1
+MAP2K2	activation,phosphorylation	MAPK3
+MAPK1	phosphorylation	FOS
+MAPK1	phosphorylation	JUN
+MAPK1	phosphorylation	MYC
+MAPK3	phosphorylation	FOS
+MAPK3	phosphorylation	JUN
+MAPK3	phosphorylation	MYC
+MTOR	activation	RPS6KB1
+MTOR	activation	RPS6KB2
+MYC	expression	CCND1
+NRAS	activation	ARAF
+NRAS	activation	BRAF
+NRAS	activation	RAF1
+PIK3CA	activation	AKT1
+PIK3CA	activation	AKT2
+PIK3CA	activation	AKT3
+PIK3CA	activation	cpd:C05981
+PIK3CB	activation	AKT1
+PIK3CB	activation	AKT2
+PIK3CB	activation	AKT3
+PIK3CB	activation	cpd:C05981
+PIK3CD	activation	AKT1
+PIK3CD	activation	AKT2
+PIK3CD	activation	AKT3
+PIK3CD	activation	cpd:C05981
+PIK3R1	activation	AKT1
+PIK3R1	activation	AKT2
+PIK3R1	activation	AKT3
+PIK3R1	activation	cpd:C05981
+PIK3R2	activation	AKT1
+PIK3R2	activation	AKT2
+PIK3R2	activation	AKT3
+PIK3R2	activation	cpd:C05981
+PIK3R3	activation	AKT1
+PIK3R3	activation	AKT2
+PIK3R3	activation	AKT3
+PIK3R3	activation	cpd:C05981
+PMAIP1	inhibition	BCL2
+RAC1	activation	MAPK10
+RAC1	activation	MAPK8
+RAC1	activation	MAPK9
+RAC2	activation	MAPK10
+RAC2	activation	MAPK8
+RAC2	activation	MAPK9
+RAC3	activation	MAPK10
+RAC3	activation	MAPK8
+RAC3	activation	MAPK9
+RAF1	activation,phosphorylation	MAP2K1
+RAF1	activation,phosphorylation	MAP2K2
+RALA	activation	RAC1
+RALA	activation	RAC2
+RALA	activation	RAC3
+RALA	activation	RHOA
+RALB	activation	RAC1
+RALB	activation	RAC2
+RALB	activation	RAC3
+RALB	activation	RHOA
+RALGDS	activation	RALA
+RALGDS	activation	RALB
+RHOA	activation	MAPK10
+RHOA	activation	MAPK8
+RHOA	activation	MAPK9
+SMAD2	binding/association	SMAD4
+SMAD3	binding/association	SMAD4
+SOS1	activation	HRAS
+SOS1	activation	KRAS
+SOS1	activation	NRAS
+SOS2	activation	HRAS
+SOS2	activation	KRAS
+SOS2	activation	NRAS
+TCF7	expression	BIRC5
+TCF7	expression	CCND1
+TCF7	expression	MYC
+TCF7L1	expression	BIRC5
+TCF7L1	expression	CCND1
+TCF7L1	expression	MYC
+TCF7L2	expression	BIRC5
+TCF7L2	expression	CCND1
+TCF7L2	expression	MYC
+TGFA	activation	EGFR
+TGFBR1	membership	TGFBR1&TGFBR2
+TGFBR1&TGFBR2	missing interaction	SMAD2
+TGFBR1&TGFBR2	missing interaction	SMAD3
+TGFBR2	membership	TGFBR1&TGFBR2
+TP53	missing interaction	BAK1
+TP53	missing interaction	BAX
+TP53	missing interaction	CDKN1A
+TP53	missing interaction	DDB2
+TP53	missing interaction	GADD45A
+TP53	missing interaction	GADD45B
+TP53	missing interaction	GADD45G
+TP53	missing interaction	POLK
+cpd:C05981	activation	AKT1
+cpd:C05981	activation	AKT2
+cpd:C05981	activation	AKT3

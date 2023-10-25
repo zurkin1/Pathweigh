@@ -1,0 +1,32 @@
+Thyroid cancer	1001	protein	BRAF	101	BRAF		KEGG		input	11	activation,phosphorylation
+Thyroid cancer	1001	protein	MAP2K1	102	MAP2K1,MAP2K2		KEGG		output	11	activation,phosphorylation
+Thyroid cancer	1001	protein	CCDC6	103	CCDC6		KEGG		input	12	indirect effect
+Thyroid cancer	1001	protein	HRAS	104	HRAS,KRAS,NRAS		KEGG		output	12	indirect effect
+Thyroid cancer	1001	protein	CTNNB1	105	CTNNB1		KEGG		input	13	activation
+Thyroid cancer	1001	protein	LEF1	106	TCF7,TCFL1,TCFL2		KEGG		output	13	activation
+Thyroid cancer	1001	protein	CTNNB1	105	CTNNB1		KEGG		output	14	dissociation
+Thyroid cancer	1001	protein	CDH1	107	CDH1		KEGG		input	14	dissociation
+Thyroid cancer	1001	protein	HRAS	104	HRAS,KRAS,NRAS		KEGG		input	15	activation
+Thyroid cancer	1001	protein	BRAF	101	BRAF		KEGG		output	15	activation
+Thyroid cancer	1001	protein	LEF1	108	LEF1		KEGG		input	16	expression
+Thyroid cancer	1001	protein	CCND1	109	CCND1,MYC		KEGG		output	16	expression
+Thyroid cancer	1001	protein	MAP2K1	110	MAP2K1,MAP2K2		KEGG		input	17	activation,phosphorylation
+Thyroid cancer	1001	protein	MAPK1	111	MAPK1,MAPK3		KEGG		output	17	activation,phosphorylation
+Thyroid cancer	1001	protein	NCOA4	112	NCOA4		KEGG		input	18	indirect effect
+Thyroid cancer	1001	protein	HRAS	104	HRAS,KRAS,NRAS		KEGG		output	18	indirect effect
+Thyroid cancer	1001	protein	NRAS	113	NRAS		KEGG		input	19	activation
+Thyroid cancer	1001	protein	BRAF	101	BRAF		KEGG		output	19	activation
+Thyroid cancer	1001	protein	NTRK1	114	NTRK1		KEGG		input	20	indirect effect
+Thyroid cancer	1001	protein	HRAS	104	HRAS,KRAS, NRAS		KEGG		output	20	indirect effect
+Thyroid cancer	1001	protein	PAX8	114	PAX8,PPARG		KEGG		input	21	binding/association
+Thyroid cancer	1001	protein	RXRA	115	RXRA,RXRB,RXRG		KEGG		output	21	binding/association
+Thyroid cancer	1001	protein	RET	116	RET		KEGG		input	22	indirect effect
+Thyroid cancer	1001	protein	HRAS	104	HRAS,KRAS,NRAS		KEGG		output	22	indirect effect
+Thyroid cancer	1001	protein	TCF7	117	TCF7,TCF7L1,TCF7L2		KEGG		input	23	expression
+Thyroid cancer	1001	protein	CCND1	109	MYC		KEGG		output	23	expression
+Thyroid cancer	1001	protein	TFG	118	TFG		KEGG		input	24	indirect effect
+Thyroid cancer	1001	protein	HRAS	104	HRAS,KRAS, NRAS		KEGG		output	24	indirect effect
+Thyroid cancer	1001	protein	TP53	119	TP53		KEGG		input	25	missing interaction
+Thyroid cancer	1001	protein	BAK1	120	BAK1,BAX,CDKN1A,DDB2,GADD45A,GADD45B,GADD45G,POLK		KEGG		output	25	missing interaction
+Thyroid cancer	1001	protein	TPM3	121	TPM3,TPR		KEGG		input	26	indirect effect
+Thyroid cancer	1001	protein	HRAS	104	HRAAS,KRAS,NRAS		KEGG		output	26	indirect effect

@@ -1,0 +1,57 @@
+BRAF	activation,phosphorylation	MAP2K1
+BRAF	activation,phosphorylation	MAP2K2
+CCDC6	indirect effect	HRAS
+CCDC6	indirect effect	KRAS
+CCDC6	indirect effect	NRAS
+CTNNB1	activation	LEF1
+CTNNB1	activation	TCF7
+CTNNB1	activation	TCF7L1
+CTNNB1	activation	TCF7L2
+CTNNB1	dissociation	CDH1
+HRAS	activation	BRAF
+KRAS	activation	BRAF
+LEF1	expression	CCND1
+LEF1	expression	MYC
+MAP2K1	activation,phosphorylation	MAPK1
+MAP2K1	activation,phosphorylation	MAPK3
+MAP2K2	activation,phosphorylation	MAPK1
+MAP2K2	activation,phosphorylation	MAPK3
+NCOA4	indirect effect	HRAS
+NCOA4	indirect effect	KRAS
+NCOA4	indirect effect	NRAS
+NRAS	activation	BRAF
+NTRK1	indirect effect	HRAS
+NTRK1	indirect effect	KRAS
+NTRK1	indirect effect	NRAS
+PAX8	binding/association	RXRA
+PAX8	binding/association	RXRB
+PAX8	binding/association	RXRG
+PPARG	binding/association	RXRA
+PPARG	binding/association	RXRB
+PPARG	binding/association	RXRG
+RET	indirect effect	HRAS
+RET	indirect effect	KRAS
+RET	indirect effect	NRAS
+TCF7	expression	CCND1
+TCF7	expression	MYC
+TCF7L1	expression	CCND1
+TCF7L1	expression	MYC
+TCF7L2	expression	CCND1
+TCF7L2	expression	MYC
+TFG	indirect effect	HRAS
+TFG	indirect effect	KRAS
+TFG	indirect effect	NRAS
+TP53	missing interaction	BAK1
+TP53	missing interaction	BAX
+TP53	missing interaction	CDKN1A
+TP53	missing interaction	DDB2
+TP53	missing interaction	GADD45A
+TP53	missing interaction	GADD45B
+TP53	missing interaction	GADD45G
+TP53	missing interaction	POLK
+TPM3	indirect effect	HRAS
+TPM3	indirect effect	KRAS
+TPM3	indirect effect	NRAS
+TPR	indirect effect	HRAS
+TPR	indirect effect	KRAS
+TPR	indirect effect	NRAS

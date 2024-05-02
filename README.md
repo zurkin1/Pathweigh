@@ -1,4 +1,4 @@
-# Pathweigh - A Biochemical Pathway Analysis Tool
+# PathWeigh - A Biochemical Pathway Analysis Tool
 ![Pathway analysis](https://norbis.w.uib.no/files/2016/05/F1.large_-768x623.jpg)
 
 ## The Concept of Biological Pathway

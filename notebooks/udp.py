@@ -209,6 +209,8 @@ def calc_udp_multi_process(is_rnaseq):
     print(time.ctime(), f'Calculate UDP, is_rnaseq: {is_rnaseq}')
     data = data.apply(lambda row: row.fillna(row.mean()), axis=1)
     data.index = data.index.map(str.lower)
+    if data.max().max() < 20:
+        data = 2 ** data
     probes = pd.read_csv(relative_path + 'probelinksv2.txt', index_col=0)
     genes = pd.read_csv(relative_path + 'gene_list.csv')
     if (not is_rnaseq):

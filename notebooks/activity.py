@@ -6,7 +6,7 @@ import multiprocessing as mp
 import sys
 import gc
 try:
-    from udp import calc_udp_gmm, calc_udp_nbm
+    from notebooks.udp import calc_udp_gmm, calc_udp_nbm
 except ImportError:
     from .udp import calc_udp_gmm, calc_udp_nbm
 from scipy.stats import mannwhitneyu as mann

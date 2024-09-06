@@ -2,7 +2,15 @@
 ![Pathway analysis](https://norbis.w.uib.no/files/2016/05/F1.large_-768x623.jpg)
 
 ## Overview
-PathWeigh is a Python-based pathway analysis tool tailored for microarray and RNA-seq data analysis. It employs a unique graph-based algorithm to enable the analysis of diverse cellular states, such as T cell subtypes. Designed to be open-source, extensible, and computationally efficient, PathWeigh provides researchers with a versatile framework for uncovering biologically meaningful insights from high-dimensional transcriptomics data.
+PathWeigh is an advanced Python-based pathway analysis tool specifically designed for microarray and RNA-sequencing data analysis. This innovative software implements a novel graph-based algorithm, enabling comprehensive analysis of diverse cellular states, including but not limited to T cell subtypes. 
+
+Key attributes of PathWeigh include:
+
+- Open-source architecture
+- Extensible framework
+- Computational efficiency
+
+These features collectively provide researchers with a robust and versatile platform for extracting biologically meaningful insights from high-dimensional transcriptomics data.
 
 ## Key Features
 - Tailored for microarray and RNA-seq data analysis
@@ -13,6 +21,35 @@ PathWeigh is a Python-based pathway analysis tool tailored for microarray and RN
 
 ## Installation
 Simply clone this repository using git clone command.
+
+## Input File Requirements
+PathWeigh requires a single input file.
+
+- `input.csv`: A gene expression matrix representing cell populations, with dimensions `(n_genes) x (k_cells)`.
+
+Data Specifications:
+
+1. Gene Symbols: 
+   - Must be provided in the first column.
+   - Can be in either lower or upper case.
+
+2. Expression Data:
+   - Should be in non-log scale.
+   - An anti-log transformation is automatically applied if the maximum expression value is < 20.
+
+3. Gene Selection:
+   - PathWeigh employs internal marker gene selection algorithms.
+   - Consequently, not all provided signature genes may be utilized in the analysis.
+
+4. RNA-seq Normalization:
+   - Accepted normalization methods: TPM, RPKM, or FPKM.
+   - This is crucial as PathWeigh's default behavior assumes a negative binomial distribution of gene expression.
+
+5. Gene Nomenclature:
+   - Gene names should adhere to the HUGO standard (e.g., as defined in https://www.genenames.org/).
+   - Generally, gene names used should correspond to those in the pathway definitions.
+
+Adherence to these specifications ensures proper formatting of input data, facilitating accurate analysis by PathWeigh.
 
 ## Quick Start
 ```
@@ -25,6 +62,7 @@ For detailed usage instructions, please refer to the notebooks in the `notebooks
 
 ## Supported Pathways
 PathWeigh currently supports 581 curated pathways. Click the link to view the full list. [List of supported pathways.](data/pathnames.txt)
+
 [Guide for adding a new pathway.](data/guide.md)
 
 ## Contributing

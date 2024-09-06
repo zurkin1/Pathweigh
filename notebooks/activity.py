@@ -6,7 +6,7 @@ import multiprocessing as mp
 import sys
 import gc
 try:
-    from notebooks.udp import calc_udp_gmm, calc_udp_nbm
+    from udp import calc_udp_gmm, calc_udp_nbm
 except ImportError:
     from .udp import calc_udp_gmm, calc_udp_nbm
 from scipy.stats import mannwhitneyu as mann
@@ -105,10 +105,10 @@ class path_activity:
     # Replace link with UDP.
     def link_to_udp(self, link, sample):
         if ('LL' in link):
-            return (self.link_to_pr_dict[sample].get(int(link.replace('LL:', '')), np.NaN))
+            return (self.link_to_pr_dict[sample].get(int(link.replace('LL:', '')), np.nan))
         if ('UP' in link):
-            return (self.link_to_pr_dict[sample].get(int(self.up2ll_dict.get(link.replace('UP:', ''), 0)), np.NaN))
-        return self.link_to_pr_dict[sample].get(str.lower(link), np.NaN)
+            return (self.link_to_pr_dict[sample].get(int(self.up2ll_dict.get(link.replace('UP:', ''), 0)), np.nan))
+        return self.link_to_pr_dict[sample].get(str.lower(link), np.nan)
 
     # Remove link prefix.
     def rem_link_prefix(self, link):
@@ -116,7 +116,7 @@ class path_activity:
             return (int(link.replace('LL:', '')))
         if ('UP' in link):
             return (int(self.up2ll_dict.get(link.replace('UP:', ''), 0)))
-        return np.NaN
+        return np.nan
 
     # Filter only probes that appear in paths. We collect all links that are mentioned in either the paths or complexes database.
     def filter_probes(self):
@@ -164,7 +164,7 @@ class path_activity:
         # Handle non-basic complexes (they can be found by searching a molecule of type 'complex').
         # To handle non-basic complex we just need to mutiply the pr for their group of molecules.
         # Update complx table with the basic complexes values, only for molecules of type 'complex' (this will ignore basic-complex since their column 3 has proteins).
-        cmplx.loc[cmplx['molType'] == 'complex', 'pr'] = cmplx['molID'].apply(lambda x: basic_to_dict.get(x, np.NaN))
+        cmplx.loc[cmplx['molType'] == 'complex', 'pr'] = cmplx['molID'].apply(lambda x: basic_to_dict.get(x, np.nan))
         # Remove molecules that we couldn't calculate pr for (missing links, unknown basic complexes etc.).
         cmplx = cmplx.dropna()
         cmplx = cmplx[['complex_ID', 'pr']].groupby('complex_ID', as_index=False).prod()
@@ -193,11 +193,11 @@ class path_activity:
             #else:
             # If a molecule does not have a probability we need to remove the whole interaction from activity and consistency calculations.
             paths.loc[paths.molType == 'protein', 'pr'] = paths.molLink.apply(lambda x: max([self.link_to_udp(
-                i, sample) for i in str(x).split(',')]))  # Max returns NaN if there is at least one NaN in the list.
+                i, sample) for i in str(x).split(',')]))  # Max returns nan if there is at least one nan in the list.
             # Compounds are assumed to always be present
             paths.loc[paths.molType == 'compound', 'pr'] = 1
             paths.loc[paths.molType == 'rna', 'pr'] = 1
-            paths.loc[paths.molType == 'complex', 'pr'] = paths.molNum.apply(lambda x: cmplx_to_pr_dict.get(x, np.NaN))
+            paths.loc[paths.molType == 'complex', 'pr'] = paths.molNum.apply(lambda x: cmplx_to_pr_dict.get(x, np.nan))
 
             # Calculate activity and consistency of each interaction.
             # Activity of interactions is a multiplication of the inputs.

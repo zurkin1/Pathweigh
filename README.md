@@ -58,12 +58,12 @@ calc_activity(df)
 ```
 
 ## Usage
-For detailed usage instructions, please refer to the notebooks in the `notebooks` folder, which demonstrate RNA-seq data processing using PathWeigh.
+For detailed usage instructions, please refer to the notebooks in the `code` folder, which demonstrate RNA-seq data processing using PathWeigh.
 
 ## Supported Pathways
-PathWeigh currently supports 581 curated pathways. Click the link to view the full list. [List of supported pathways.](data/pathnames.txt)
+PathWeigh currently supports 581 curated pathways. Click the link to view the full list. [List of supported pathways.](code/data/pathnames.txt)
 
-[Guide for adding a new pathway.](data/guide.md)
+[Guide for adding a new pathway.](code/data/guide.md)
 
 ## Contributing
 We welcome contributions! Please see our Contributing Guidelines for more information on how to get involved.

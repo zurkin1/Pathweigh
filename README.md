@@ -82,4 +82,4 @@ If you use PathSingle in your research, please cite our paper:
 Livne, D., Efroni, S. (2022). PathWeigh – Quantifying the Behavior of Biochemical Pathway Cascades. In: Rojas, I., Valenzuela, O., Rojas, F., Herrera, L.J., Ortuño, F. (eds) Bioinformatics and Biomedical Engineering. IWBBIO 2022. Lecture Notes in Computer Science(), vol 13347. Springer, Cham. https://doi.org/10.1007/978-3-031-07802-6_29
 
 ## Acknowledgments
-We thank the scientific community for their valuable feedback and contributions to this project.
+We thank the reviewers of this work for their valuable feedback and contributions.
